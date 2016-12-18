@@ -1,0 +1,26 @@
+<div id="container">
+	<h1>Webpack in 5 min</h1>
+	<!-- Child component called "sidemenu" -->
+	<sidemenu page="wiki"></sidemenu>
+	<main role="main">
+		<div id="search-box">
+			<h2>Wiki Search Demo</h2>
+			<!--
+				 Our model "keyword" is defined within "data" of "pages/wiki.js".
+			   -->
+			<p><input id="keywords" v-model="keywords" placeholder="Type to search"></p>
+			<div id="searching" v-if="is_searching">Searching...</div>
+			<!--
+				 We have "transition-group" so that it will have a nice effect
+				 called "switch-search-result-list" which is defined in the CSS.
+			   -->
+		</div>
+		<transition-group id="search-result-list-wrapper" name="switch-search-result-list" v-if="search_result_list" tag="div">
+			<!--
+				 Only if we have "search_result_list", then renders each item.
+			-->
+			<div class="search-result-item" v-for="item in search_result_list" v-bind:key="item.id" tag="div"><a :href="item.url" target="blank">{{ item.title }}</a></div>
+		</transition-group>
+	</main>
+</div>
+

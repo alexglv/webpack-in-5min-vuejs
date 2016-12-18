@@ -1,0 +1,26 @@
+/**
+ * modules/flex.styl
+ */
+
+flex-direction(type = row)
+	flex-direction: type
+	-webkit-flex-direction: type
+
+flex-wrap(type = wrap)
+	flex-wrap: type
+	-webkit-flex-wrap: type
+
+flex-justify(type = flex-start)
+	justify-content: type
+	-webkit-justify-content: type
+
+flex-align(type = stretch)
+	align-items: type
+	-webkit-align-items: type
+
+flex(dirType = row, wrapType = wrap)
+	display: flex
+	display: -webkit-flex
+	flex-direction(dirType)
+	flex-wrap(wrapType)
+
