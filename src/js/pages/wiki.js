@@ -7,6 +7,7 @@ import store from '../store/index.js';
 import config from 'config';
 import utils from '../lib/utils.js';
 import template from '../../wiki.html';
+import heading from './heading.js';
 import sidemenu from './sidemenu.js';
 
 // Routing definition for "/wiki"
@@ -46,6 +47,11 @@ export default {
 		})
 	},
 	components: {
+		// Child component:
+		//    heading.js
+		// Embedded in "index.html":
+		//    <heading page="main"></heading>
+		heading,
 		// Child component:
 		//    sidemenu.js
 		// Embedded in "index.html":

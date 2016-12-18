@@ -18,6 +18,8 @@ For this specific variation, it includes some basic setups for projects using
 with Hot Module Reloading (HMR), and you need to manually refresh the browser  
 as you change your source codes.
 
+[Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)
+
 To demonstrate the page transition using **vue-router**, we have a rotating 3D cube using Three.js  
 for the first page, and a keyword search on Wikipedia in which the events are handled by *Vuex*.
 
