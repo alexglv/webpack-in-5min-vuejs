@@ -21,7 +21,7 @@ as you change your source codes.
 [Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)
 
 To demonstrate the page transition using **vue-router**, we have a rotating 3D cube using Three.js  
-for the first page, and a keyword search on Wikipedia in which the events are handled by *Vuex*.
+for the first page, and a keyword search on Wikipedia in which the events are handled by **Vuex**.
 
 ## 2. Features
 
@@ -81,6 +81,16 @@ Above settings plus a GraphQL client (probablly using Apollo).
 * [webpack-in-5min-react]()  
 This should be useful for my work.
 
+If you are interested in **Vue.js**, I have several other repos using **Vue.js**:
+
+* [vue-change-canvas-demo](https://github.com/minagawah/vue-change-canvas-demo)  
+Demonstrates how we handle several canvas scenes switched back and forth. Some of the animations  
+uses **Vue.js**'s features. Check out how easy it is to implement using their features (see the [Demo](http://tokyo800.jp/samples/vue-change-canvas-demo)).
+* [vue-word-animation-demo](https://github.com/minagawah/vue-word-animation-demo)  
+As everyone uploads photos to a server, this client program keep watches the uploaded photos,  
+and once we retrieve some, these photos are gathered into one place in the galaxy to form  
+a huge text (see the [Demo](http://tokyo800.jp/samples/vue-word-animation-demo)).
+
 ## 6. Note
 
 ### npm install
@@ -88,7 +98,7 @@ This should be useful for my work.
 What it means when you do `npm install`:
 
 ```
-npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server gulp gulp-util gulp-shell gulp-rename run-sequence del url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader shim-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin webpack-cleanup-plugin copy-webpack-plugin uglify-save-license deep-assign yargs
+npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server gulp gulp-util gulp-shell gulp-rename run-sequence del url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin webpack-cleanup-plugin copy-webpack-plugin uglify-save-license deep-assign yargs
 
 npm install --save seedrandom vue vue-router vuex vue-resource three
 ```
@@ -104,14 +114,13 @@ gulp-util
 run-sequence
 ```
 
-Also, compared to [webpack-in-5min-with-gulp](https://github.com/minagawah/webpack-in-5min-with-gulp), we have more for `Dependencies`:
+Also, compared to [webpack-in-5min-with-gulp](https://github.com/minagawah/webpack-in-5min-with-gulp), we have several packages additionally installed.
+
+For `devDependencies`:
 
 ```
-vue
-vue-router
-vuex
-vue-resource
-three
+exports-loader
+imports-loader
 ```
 
 We are using `exports-loader` and `imports-loader` so that you can do something like this:
@@ -119,6 +128,16 @@ We are using `exports-loader` and `imports-loader` so that you can do something 
 ```
 const THREE = require('three');
 THREE.OrbitControls = require('imports?THREE=three!exports?THREE.OrbitControls!../../node_modules\/three\/examples\/js\/controls\/OrbitControls');
+```
+
+For `Dependencies`:
+
+```
+vue
+vue-router
+vuex
+vue-resource
+three
 ```
 
 ### jsonp
