@@ -93,7 +93,28 @@ npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset
 npm install --save seedrandom vue vue-router vuex vue-resource three
 ```
 
-Notice, we are using `exports-loader` and `imports-loader` so that you can do something like this:
+Notice, compared to the basic setup [webpack-in-5min](https://github.com/minagawah/webpack-in-5min), we have a few more npm packages installed for `devDependencies`:
+
+```
+del
+gulp
+gulp-rename
+gulp-shell
+gulp-util
+run-sequence
+```
+
+Also, compared to [webpack-in-5min-with-gulp](https://github.com/minagawah/webpack-in-5min-with-gulp), we have more for `Dependencies`:
+
+```
+vue
+vue-router
+vuex
+vue-resource
+three
+```
+
+We are using `exports-loader` and `imports-loader` so that you can do something like this:
 
 ```
 const THREE = require('three');

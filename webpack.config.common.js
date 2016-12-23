@@ -15,10 +15,18 @@ export default {
 	//   instead of: <img src="src/images/test.jpg" />
 	//   it will be: <img src="images/test.jpg" />
 	context: path.join(__dirname, 'src'),
-	entry: {},
-	output: {},
+	output: {
+		path: path.join(__dirname, 'build')
+	},
 	module: {
 		loaders: [
+			{
+				enforce: 'pre',
+				test: /\.js$/,
+				include: [ path.join(__dirname, 'src') ],
+				exclude: /(?:node_modules|bower_components|build)/,
+				loader: 'eslint'
+			},
 			{
 				test: /\.html/,
 				exclude: common_exclude_path,
@@ -56,13 +64,16 @@ export default {
 			}
 		]
 	},
+	eslint: {
+		configFile: path.join(__dirname, '.eslintrc'),
+		formatter: require('eslint-friendly-formatter')
+	},
 	resolve: {
 		extensions: ['', '.js'], // resolves filename even when not specified
 		alias: {
 			// ex.
 			//   var config = require('config');
 			//   alert(config.API_KEY);
-			config: {},
 			vue: 'vue/dist/vue.js'
 		}
 	},
@@ -75,7 +86,15 @@ export default {
 		new HtmlWebpackPlugin({
 			// Avoid using "html-loader" to load the template page
 			// if you want to prevent minification on "index.html".
-			template: path.resolve(__dirname, 'src/index.html')
-		})
+			template: path.resolve(__dirname, 'src/index.html'),
+			xhtml: true
+		}),
+		new CopyWebpackPlugin([
+			// This is just an example that you can copy files.
+			{
+				from: path.resolve(__dirname, 'src/js/lib/vendor/html5shiv.min.js'),
+				to: 'js/lib/vendor'
+			}
+		])
 	]
 };

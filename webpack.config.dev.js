@@ -15,7 +15,6 @@ module.exports = deepAssign({}, common, {
 		path.resolve(__dirname, 'src/js/app.js')
 	],
 	output: {
-		path: path.join(__dirname, 'build'),
 		filename: 'app.js'
 	},
 	module: {
@@ -24,13 +23,13 @@ module.exports = deepAssign({}, common, {
 			...[
 				{
 					test: /\.js$/,
-					include: [ path.resolve(__dirname, 'src') ],
+					include: [ path.join(__dirname, 'src') ],
 					exclude: /(?:node_modules|bower_components|build)/,
-					loader: 'babel!eslint'
+					loader: 'babel'
 				},
 				{
 					test: /\.css$/,
-					include: path.resolve(__dirname, 'src'),
+					include: path.join(__dirname, 'src'),
 					loaders: [
 						'style?sourceMap',
 						// Instead of using:
@@ -44,7 +43,7 @@ module.exports = deepAssign({}, common, {
 				},
 				{
 					test: /\.styl$/,
-					include: path.resolve(__dirname, 'src'),
+					include: path.join(__dirname, 'src'),
 					loaders: [
 						'style?sourceMap',
 						'css?modules&importLoaders=1&localIdentName=[local]',
@@ -75,12 +74,7 @@ module.exports = deepAssign({}, common, {
 		// inline:		true // lively refresh the browser page
 		// -----------------------------------------------------
 	},
-	eslint: {
-		configFile: path.resolve(__dirname, '.eslintrc.js'),
-		formatter: require('eslint-friendly-formatter')
-	},
 	resolve: {
-		extensions: ['', '.js'], // resolves filename even when not specified
 		alias: {
 			// ex.
 			//   var config = require('config');
@@ -96,20 +90,7 @@ module.exports = deepAssign({}, common, {
 		}),
 		new webpack.NoErrorsPlugin(),
 		// >>> "vue-router" does not work with HMR... \(-_-;)
-		// new webpack.HotModuleReplacementPlugin(),
-		new HtmlWebpackPlugin({
-			// Avoid using "html-loader" to load the template page
-			// if you want to prevent minification on "index.html".
-			template: path.resolve(__dirname, 'src/index.html')
-		}),
-		new CopyWebpackPlugin([
-			// This is just an example that you can copy files.
-            {
-				from: path.resolve(__dirname, 'src/js/lib/vendor/html5shiv.min.js'),
-				to: 'js/lib/vendor/html5shiv.min.js',
-				toType: 'file'
-			}
-		])
+		// new webpack.HotModuleReplacementPlugin()
 	]
 });
 

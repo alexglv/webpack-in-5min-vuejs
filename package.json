@@ -1,12 +1,12 @@
 {
   "name": "webpack-in-5min-vuejs",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A minimalistic setup suitable for basic development using Webpack (with Vue.js + Vuex + vue-router).",
   "main": "build/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run serve",
-    "lint": "eslint ./src --ext=js",
+    "lint": "node ./node_modules/eslint/bin/eslint.js --rulesdir . ./src ./webpack.config.babel.js -f table --ext .js || true",
     "serve": "webpack-dev-server --env.dev --progress --profile --colors",
     "build": "webpack --env.prod --progress --profile --colors"
   },

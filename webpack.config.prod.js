@@ -16,7 +16,6 @@ module.exports = deepAssign({}, common, {
 		app: path.resolve(__dirname, 'src/js/app.js')
 	},
 	output: {
-		path: path.join(__dirname, 'build'),
 		// hash is calculated for a build, chunkhash is calculated
 		// for chunk (entry file), contenthash is special hash generated
 		// in ExtractTextPlugin and is calculated by extracted content,
@@ -30,13 +29,13 @@ module.exports = deepAssign({}, common, {
 			...[
 				{
 					test: /\.js$/,
-					include: [ path.resolve(__dirname, 'src') ],
+					include: [ path.join(__dirname, 'src') ],
 					exclude: /(?:node_modules|bower_components|build)/,
 					loader: 'babel'
 				},
 				{
 					test: /\.css$/,
-					include: path.resolve(__dirname, 'src'),
+					include: path.join(__dirname, 'src'),
 					loader: ExtractTextPlugin.extract(
 						'style',
 						// "-minimize" disables minification
@@ -45,7 +44,7 @@ module.exports = deepAssign({}, common, {
 				},
 				{
 					test: /\.styl$/,
-					include: path.resolve(__dirname, 'src'),
+					include: path.join(__dirname, 'src'),
 					loader: ExtractTextPlugin.extract(
 						'style',
 						// "-minimize" disables minification
@@ -56,7 +55,6 @@ module.exports = deepAssign({}, common, {
 		]
 	},
 	resolve: {
-		extensions: ['', '.js'], // allows implicit require
 		alias: {
 			// ex.
 			//   var config = require('config');
@@ -102,12 +100,6 @@ module.exports = deepAssign({}, common, {
 				comments: save_license
 			}
 		}),
-		new HtmlWebpackPlugin({
-			// Avoid using "html-loader" to load the template page
-			// if you want to prevent minification on "index.html".
-			template: path.resolve(__dirname, 'src/index.html'),
-			xhtml: true
-		}),
 		new ExtractTextPlugin(
 			// Because it currently does not support [path] syntax in ExtractTextPlugin,
 			// we simply output the bundled CSS to public (root) directory.
@@ -117,14 +109,7 @@ module.exports = deepAssign({}, common, {
 				// setting it "true" extracts from all additional chunks too.
 				allChunks: true
 			}
-		),
-		new CopyWebpackPlugin([
-			// This is just an example that you can copy files.
-			{
-				from: path.resolve(__dirname, 'src/js/lib/vendor/html5shiv.min.js'),
-				to: 'js/lib/vendor'
-			}
-		])
+		)
 	]
 });
 
