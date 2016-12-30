@@ -1,5 +1,5 @@
 /**
- * store.modules.wiki
+ * pages/wiki/wiki_store.js
  */
 import Vue from 'vue';
 import utils from '../../lib/utils.js';

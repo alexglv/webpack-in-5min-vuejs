@@ -1,17 +1,17 @@
 /**
- * pages.sidemenu
+ * components/topmenu.js
  */
 import Vue from 'vue';
-import template from '../../sidemenu.html';
+import template from './topmenu.html';
 
 export default Vue.component(
-	'sidemenu',
+	'topmenu',
 	{
-		props: ['page'],
 		template,
+		props: ['page'],
 		computed: {
-			is_main_page() {
-				return (this.page == 'main') ? true : false;
+			is_grid_page() {
+				return (this.page == 'grid') ? true : false;
 			},
 			is_wiki_page() {
 				return (this.page == 'wiki') ? true : false;

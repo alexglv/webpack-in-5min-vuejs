@@ -1,0 +1,52 @@
+/**
+ * index.styl
+ */
+@import "flex"
+
+html, body, button
+	font-size: 1rem
+	font-feature-settings: "palt" 1
+	font-family: verdana
+
+body, p, h1, h2, h3, h4
+	margin: 0px
+	padding: 0px
+
+body
+	background-image: url("./bg.png")
+	background-repeat: repeat
+
+html, body, #container-wrapper
+	overflow: hidden
+	height: 100%
+	width: 100%
+
+#container-wrapper
+	flex(row, wrap)
+	flex-justify(center)
+	flex-align(center)
+
+#container
+	overflow: hidden
+	height: 94%
+	width: 94%
+	flex(column, wrap)
+	flex-justify(flex-start)
+	flex-align(center)
+
+.btn
+	display: inline-block
+	outline: none
+	padding: 6px
+	background-color: #dedede
+	color: #444
+	text-align: center
+	text-decoration: none
+
+.btn-active
+	background-color: #7fa6e2
+	color: #fff
+
+@import "parts/topmenu/topmenu"
+@import "routes/grid/grid"
+@import "routes/wiki/wiki"

@@ -13,7 +13,7 @@ import common from './webpack.config.common.js';
 
 module.exports = deepAssign({}, common, {
 	entry: {
-		app: path.resolve(__dirname, 'src/js/app.js')
+		app: path.resolve(__dirname, 'src/index.js')
 	},
 	output: {
 		// hash is calculated for a build, chunkhash is calculated
@@ -59,7 +59,7 @@ module.exports = deepAssign({}, common, {
 			// ex.
 			//   var config = require('config');
 			//   alert(config.API_KEY);
-			config: path.resolve(__dirname, 'src/js/config/prod.js')
+			config: path.resolve(__dirname, 'src/config/prod.js')
 		}
 	},
 	plugins: [

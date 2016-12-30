@@ -92,7 +92,7 @@ export default {
 		new CopyWebpackPlugin([
 			// This is just an example that you can copy files.
 			{
-				from: path.resolve(__dirname, 'src/js/lib/vendor/html5shiv.min.js'),
+				from: path.resolve(__dirname, 'src/lib/vendor/html5shiv.min.js'),
 				to: 'js/lib/vendor'
 			}
 		])

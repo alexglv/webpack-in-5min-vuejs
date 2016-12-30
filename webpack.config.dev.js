@@ -12,7 +12,7 @@ module.exports = deepAssign({}, common, {
 	entry: [
 		// >>> "vue-router" does not work with HMR... \(-_-;)
 		// 'webpack/hot/dev-server',
-		path.resolve(__dirname, 'src/js/app.js')
+		path.resolve(__dirname, 'src/index.js')
 	],
 	output: {
 		filename: 'app.js'
@@ -79,7 +79,7 @@ module.exports = deepAssign({}, common, {
 			// ex.
 			//   var config = require('config');
 			//   alert(config.API_KEY);
-			config: path.resolve(__dirname, 'src/js/config/dev.js')
+			config: path.resolve(__dirname, 'src/config/dev.js')
 		}
 	},
 	plugins: [

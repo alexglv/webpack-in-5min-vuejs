@@ -1,11 +1,12 @@
+/**
+ * pages/grid/grid.js
+ */
 import Vue from 'vue';
 import {mapState} from 'vuex';
-import store from '../store/index.js';
 import config from 'config';
-import utils from '../lib/utils.js';
-import template from '../../main.html';
-import heading from './heading.js';
-import sidemenu from './sidemenu.js';
+import utils from '../../lib/utils.js';
+import template from './grid.html';
+import topmenu from '../../parts/topmenu/topmenu.js';
 
 import * as THREE from 'three';
 THREE.OrbitControls = require(
@@ -31,46 +32,18 @@ let scene				= null;
 let controls			= null;
 let cube				= null;
 
-// Routing definition for "/main"
 export default {
-	data: () => {
-		return {
-			// <input v-model="keywords" />
-			keywords: ''
-		};
-	},
-	// Our template:
-	//    ../../main.html
 	template,
-	// When Vue.js is ready.
+	components: {
+		topmenu
+	},
 	created() {
 		window.addEventListener("resize", this.resize, false);
 	},
-	// When the page document is ready.
 	mounted() {
 		this.$nextTick(() => {
 			this.init();
 		});
-	},
-	// Similar to "this.data" but it provides you computed data.
-	computed: {
-		// We can map whatever the states defined in the "store".
-		...mapState({
-			is_searching: state => state.wiki.searching,
-			search_result_list: state => state.wiki.list
-		})
-	},
-	components: {
-		// Child component:
-		//    heading.js
-		// Embedded in "index.html":
-		//    <heading page="main"></heading>
-		heading,
-		// Child component:
-		//    sidemenu.js
-		// Embedded in "index.html":
-		//    <sidemenu page="main"></sidemenu>
-		sidemenu
 	},
 	methods: {
 		resize,
@@ -100,7 +73,7 @@ function set_window_size() {
 	let {innerWidth: w, innerHeight: h} = window;
 	let chk = w * 0.6;
 	width	= 540 > chk ? chk : 540;
-	height	= width / 1.78; // 16:9
+	height	= width / 2.1; // divided by "1.78" if you prefer "16:9"
 	width	= parseInt(width);
 	height	= parseInt(height);
 	aspect	= width / height;
