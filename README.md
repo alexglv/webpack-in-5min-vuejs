@@ -98,7 +98,7 @@ a huge text (see the **[Demo](http://tokyo800.jp/samples/vue-word-animation-demo
 What it means when you do `npm install`:
 
 ```
-npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin webpack-cleanup-plugin copy-webpack-plugin uglify-save-license deep-assign yargs del gulp gulp-util gulp-shell gulp-rename run-sequence
+npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin webpack-cleanup-plugin copy-webpack-plugin uglify-save-license lodash.merge yargs del gulp gulp-util gulp-shell gulp-rename run-sequence
 
 npm install --save seedrandom vue vue-router vuex vue-resource three
 ```
@@ -133,7 +133,7 @@ extract-text-webpack-plugin
 webpack-cleanup-plugin
 copy-webpack-plugin
 uglify-save-license
-deep-assign
+lodash.merge
 yargs
 del
 gulp
@@ -204,7 +204,7 @@ uglify-save-license
 eslint-friendly-formatter
 stylus
 stylus-loader
-deep-assign
+lodash.merge
 yargs
 ```
 ##### # seedrandom
@@ -235,13 +235,13 @@ Remove this if you are not using Stylus.
 
 Remove this if you are not using Stylus.
 
-##### # deep-assign
+##### # lodash.merge
 
 Upon bundling your app, `webpack.config.dev.js` or `webpack.config.prod.js` first requires `webpack.config.common.js`  
 as its basic webpack configuration, and combine it with the environment specific configurations.  
 Due to the limitation of `Object.assign` which allows you to create only the shallow copy of the objects combined,  
-we need a tool to deep copy objects. Remove this package if you have alternative ways to distinguish  
-environment specific settings, or want to replace it with some other deep copy tools (like `underscore`).
+we need a tool to deep merge objects. Remove this package if you have alternative ways to distinguish  
+environment specific settings, or want to replace it with some other deep merge tools.
 
 ##### # yargs
 

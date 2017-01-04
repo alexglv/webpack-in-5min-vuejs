@@ -1,5 +1,5 @@
 /**
- * app.js
+ * index.js
  */
 import Vue from 'vue';
 import Vuex from 'vuex';

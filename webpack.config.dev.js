@@ -2,13 +2,15 @@
  * webpack.config.dev.js
  */
 import path from 'path';
-import deepAssign from 'deep-assign';
+import merge from 'lodash.merge';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import common from './webpack.config.common.js';
 
-module.exports = deepAssign({}, common, {
+// Overwrite "common.base" with "dev" specific configurations.
+// Explicitly "module.exports" instead of "export default" in case of "gulp".
+module.exports = merge({}, common, {
 	entry: [
 		// >>> "vue-router" does not work with HMR... \(-_-;)
 		// 'webpack/hot/dev-server',
@@ -83,14 +85,17 @@ module.exports = deepAssign({}, common, {
 		}
 	},
 	plugins: [
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('development')
-			}
-		}),
-		new webpack.NoErrorsPlugin(),
-		// >>> "vue-router" does not work with HMR... \(-_-;)
-		// new webpack.HotModuleReplacementPlugin()
+		...common.plugins,
+		...[
+			new webpack.DefinePlugin({
+				'process.env': {
+					NODE_ENV: JSON.stringify('development')
+				}
+			}),
+			new webpack.NoErrorsPlugin(),
+			// >>> "vue-router" does not work with HMR... \(-_-;)
+			// new webpack.HotModuleReplacementPlugin()
+		]
 	]
 });
 
