@@ -29,15 +29,23 @@ Look into each file. I added a bunch of comments explaining what they actually d
 
 ## 3. Installation
 
+Make sure you have `babel-cli` installed globally.
+
+```
+npm install -g babel-cli
+```
+
 Clone it.
 
 ```
+cd path/to/your/own/workspace
 git clone https://github.com/minagawah/webpack-in-5min-vuejs.git
 ```
 
 Install npm packages.
 
 ```
+cd webpack-in-5min-vuejs
 npm install
 ```
 
@@ -68,20 +76,25 @@ The above will create bundled files in `build` directory.
 
 ## 5. Other Variations
 
-Future repositories yet to come:
+List of projects that are based on [webpack-in-5min](https://github.com/minagawah/webpack-in-5min):
 
 * **[webpack-in-5min](https://github.com/minagawah/webpack-in-5min)**  
 This is the basic setup using Webpack.
 * **[webpack-in-5min-with-gulp](https://github.com/minagawah/webpack-in-5min-with-gulp)**  
-There are things `gulp` is good at doing where Webpack cannot.
+There are things only `gulp` can do which Webpack cannot.
 * **[webpack-in-5min-vuejs](https://github.com/minagawah/webpack-in-5min-vuejs)**  
-Vue + Vuex + vue-router is usually the basic combination that satisfies my basic needs.
+Example of simple Webpack setup using Vue + Vuex + vue-router.
 * **webpack-in-5min-vuejs-graphql**  
 Above settings plus a GraphQL client (probablly using Apollo).
 * **webpack-in-5min-react**  
-This should be useful for my work.
+Still working on it...
 
-If you are interested in Vue.js, I have several other repos using Vue.js:
+Or, a nice example to illustrate how to manage client + server source codes in the same Webpack project:
+
+* **[vue-quick-delivery](https://github.com/minagawah/vue-quick-delivery)**  
+Managing client and server source codes using Webpack (Express + Vue.js).
+
+Or, if you are interested in Vue.js, I have some samples using Vue.js:
 
 * **[vue-change-canvas-demo](https://github.com/minagawah/vue-change-canvas-demo)**  
 Demonstrates how we handle several canvas scenes switched back and forth. Some of the animations  

@@ -1,5 +1,5 @@
 /**
- * pages/grid/grid.js
+ * routes/grid/grid.js
  */
 import Vue from 'vue';
 import {mapState} from 'vuex';

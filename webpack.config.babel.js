@@ -1,5 +1,5 @@
 /**
- * webpack.config.js
+ * webpack.config.babel.js
  *
  * ========================================================================
  * This will not be executed if you run webpack with "gulp".

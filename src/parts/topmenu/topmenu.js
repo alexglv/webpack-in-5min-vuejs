@@ -1,5 +1,5 @@
 /**
- * components/topmenu.js
+ * parts/topmenu/topmenu.js
  */
 import Vue from 'vue';
 import template from './topmenu.html';

@@ -1,5 +1,5 @@
 /**
- * pages/wiki/wiki.js
+ * routes/wiki/wiki.js
  */
 import Vue from 'vue';
 import {mapState} from 'vuex';
