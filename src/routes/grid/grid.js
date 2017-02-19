@@ -10,7 +10,7 @@ import topmenu from '../../parts/topmenu/topmenu.js';
 
 import * as THREE from 'three';
 THREE.OrbitControls = require(
-	'imports?THREE=three!exports?THREE.OrbitControls!' +
+	'imports-loader?THREE=three!exports-loader?THREE.OrbitControls!' +
 		'../../../node_modules\/three\/examples\/js\/controls\/OrbitControls.js');
 
 window.request_animation_frame = (function(){

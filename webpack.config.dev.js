@@ -1,15 +1,15 @@
 /**
  * webpack.config.dev.js
  */
-import path from 'path';
-import merge from 'lodash.merge';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import common from './webpack.config.common.js';
+const path = require('path');
+const merge = require('lodash.merge');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const common = require('./webpack.config.common.js');
 
 // Overwrite "common.base" with "dev" specific configurations.
-// Explicitly "module.exports" instead of "export default" in case of "gulp".
+// Use "module.exports" in case some other modules using this module in commonJS way.
 module.exports = merge({}, common, {
 	entry: [
 		// >>> "vue-router" does not work with HMR... \(-_-;)
@@ -20,36 +20,72 @@ module.exports = merge({}, common, {
 		filename: 'app.js'
 	},
 	module: {
-		loaders: [
-			...common.module.loaders,
+		rules: [
+			...common.module.rules,
 			...[
 				{
 					test: /\.js$/,
 					include: [ path.join(__dirname, 'src') ],
 					exclude: /(?:node_modules|bower_components|build)/,
-					loader: 'babel'
+					use: [{ loader: 'babel-loader' }]
 				},
 				{
 					test: /\.css$/,
 					include: path.join(__dirname, 'src'),
-					loaders: [
-						'style?sourceMap',
-						// Instead of using:
-						//    localIdentName = [path]___[name]__[local]___[hash:base64:5]
-						// using:
-						//    localIdentName = [local]
-						// allows HTML pages to refer to selector names that are
-						// exactly the same as the ones defined in stylesheets.
-						'css?modules&importLoaders=1&localIdentName=[local]'
+					use: [
+						{
+							loader: 'style-loader',
+							options: {
+								sourceMap: true
+							}
+						},
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								import: true,
+								// 1 loaders ("style-loader") loaded before
+								importLoaders: 1,
+								// Avoid:
+								//	  localIdentName: [path]___[name]__[local]___[hash:base64:5]
+								// but use:
+								//	  localIdentName: [local]
+								// to enable HTMLs to refer to selectors that
+								// are exactly what defined in your stylesheets.
+								localIdentName: '[local]'
+							}
+						}
 					]
 				},
 				{
 					test: /\.styl$/,
 					include: path.join(__dirname, 'src'),
-					loaders: [
-						'style?sourceMap',
-						'css?modules&importLoaders=1&localIdentName=[local]',
-						'stylus-loader'
+					use: [
+						{
+							loader: 'style-loader',
+							options: {
+								sourceMap: true
+							}
+						},
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								import: true,
+								// 1 loader ("stylus-loader") loaded before
+								importLoaders: 1,
+								// Avoid:
+								//	  localIdentName: [path]___[name]__[local]___[hash:base64:5]
+								// but use:
+								//	  localIdentName: [local]
+								// to enable HTMLs to refer to selectors that
+								// are exactly what defined in your stylesheets.
+								localIdentName: '[local]'
+							}
+						},
+						{
+							loader: 'stylus-loader'
+						}
 					]
 				}
 			]
@@ -69,7 +105,8 @@ module.exports = merge({}, common, {
 		host:		process.env.HOST || '127.0.0.1',
 		port:		process.env.PORT || '8080',
 		historyApiFallback: true,
-		noInfo:		true
+		// If not showing info, the build stops with "95% emitting", and is misleading.
+		noInfo:		false
 		// >>> "vue-router" does not work with HMR... \(-_-;)
 		// -----------------------------------------------------
 		// hot:		true, // hot reload on changes
@@ -79,8 +116,8 @@ module.exports = merge({}, common, {
 	resolve: {
 		alias: {
 			// ex.
-			//   var config = require('config');
-			//   alert(config.API_KEY);
+			//	 var config = require('config');
+			//	 alert(config.API_KEY);
 			config: path.resolve(__dirname, 'src/config/dev.js')
 		}
 	},
@@ -89,10 +126,11 @@ module.exports = merge({}, common, {
 		...[
 			new webpack.DefinePlugin({
 				'process.env': {
-					NODE_ENV: JSON.stringify('development')
+					NODE_ENV: JSON.stringify('development'),
+					UV_THREADPOOL_SIZE: 128
 				}
 			}),
-			new webpack.NoErrorsPlugin(),
+			new webpack.NoEmitOnErrorsPlugin()
 			// >>> "vue-router" does not work with HMR... \(-_-;)
 			// new webpack.HotModuleReplacementPlugin()
 		]

@@ -1,18 +1,18 @@
 /**
  * webpack.config.prod.js
  */
-import path from 'path';
-import merge from 'lodash.merge';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import WebpackCleanupPlugin from 'webpack-cleanup-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import save_license from 'uglify-save-license';
-import common from './webpack.config.common.js';
+const path = require('path');
+const merge = require('lodash.merge');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const save_license = require('uglify-save-license');
+const common = require('./webpack.config.common.js');
 
 // Overwrite "common.base" with "prod" specific configurations.
-// Explicitly "module.exports" instead of "export default" in case of "gulp".
+// Use "module.exports" in case some other modules using this module in commonJS way.
 module.exports = merge({}, common, {
 	entry: {
 		app: path.resolve(__dirname, 'src/index.js')
@@ -26,32 +26,57 @@ module.exports = merge({}, common, {
 		filename: '[name].[chunkhash].js'
 	},
 	module: {
-		loaders: [
-			...common.module.loaders,
+		rules: [
+			...common.module.rules,
 			...[
 				{
 					test: /\.js$/,
 					include: [ path.join(__dirname, 'src') ],
 					exclude: /(?:node_modules|bower_components|build)/,
-					loader: 'babel'
+					use: [{ loader: 'babel-loader' }]
 				},
 				{
 					test: /\.css$/,
 					include: path.join(__dirname, 'src'),
-					loader: ExtractTextPlugin.extract(
-						'style',
-						// "-minimize" disables minification
-						'css?modules&importLoaders=1&localIdentName=[local]&-minimize'
-					)
+					use: ExtractTextPlugin.extract({
+						fallback: 'style-loader',
+						use: [
+							{
+								loader: 'css-loader',
+								options: {
+									modules: true,
+									import: true,
+									// 0 loaders loaded before
+									importLoaders: 0,
+									localIdentName: '[local]',
+									minimize: false
+								}
+							}
+						]
+					})
 				},
 				{
 					test: /\.styl$/,
 					include: path.join(__dirname, 'src'),
-					loader: ExtractTextPlugin.extract(
-						'style',
-						// "-minimize" disables minification
-						'css?modules&importLoaders=1&localIdentName=[local]&-minimize!stylus-loader'
-					)
+					use: ExtractTextPlugin.extract({
+						fallback: 'style-loader',
+						use: [
+							{
+								loader: 'css-loader',
+								options: {
+									modules: true,
+									import: true,
+									// 1 loaders ("style-loader") loaded before
+									importLoaders: 0,
+									localIdentName: '[local]',
+									minimize: false
+								}
+							},
+							{
+								loader: 'stylus-loader'
+							}
+						]
+					})
 				}
 			]
 		]
@@ -59,8 +84,8 @@ module.exports = merge({}, common, {
 	resolve: {
 		alias: {
 			// ex.
-			//   var config = require('config');
-			//   alert(config.API_KEY);
+			//	 var config = require('config');
+			//	 alert(config.API_KEY);
 			config: path.resolve(__dirname, 'src/config/prod.js')
 		}
 	},
@@ -84,12 +109,7 @@ module.exports = merge({}, common, {
 			// Ids that are used often get lower (shorter) ids.
 			// This make ids predictable, reduces total file size and is recommended.
 			// https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin
-			new webpack.optimize.OccurenceOrderPlugin(),
-			// Search for equal or similar files and deduplicate them in the output.
-			// This comes with some overhead for the entry chunk,
-			// but can reduce file size effectively.
-			// https://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.OccurrenceOrderPlugin(),
 			new webpack.optimize.UglifyJsPlugin({
 				exclude: /\.html$/,
 				compress: {
@@ -104,16 +124,14 @@ module.exports = merge({}, common, {
 					comments: save_license
 				}
 			}),
-			new ExtractTextPlugin(
+			new ExtractTextPlugin({
 				// Because it currently does not support [path] syntax in ExtractTextPlugin,
-				// we simply output the bundled CSS to public (root) directory.
-				'[contenthash].css',
-				{
-					// While it extracts only from the initial chunks by default,
-					// setting it "true" extracts from all additional chunks too.
-					allChunks: true
-				}
-			)
+				// we simply output the bundled CSS to build (root) directory.
+				filename: '[contenthash].css',
+				// While it extracts only from the initial chunks by default,
+				// setting it "true" extracts from all additional chunks too.
+				allChunks: true
+			})
 		]
 	]
 });

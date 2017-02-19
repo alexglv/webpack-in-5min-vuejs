@@ -9,10 +9,7 @@ Whenever I create new projects, I always faced with the demand of having a minim
 so that I can just reuse it elsewhere. Now, I hope this thing will make my life a little bit easier,  
 and so it will for those who have the similar issues as I have.
 
-In addition to the basic features available in [webpack-in-5min](https://github.com/minagawah/webpack-in-5min), this specific repository allows you  
-to use `gulp` command to perform the same tasks.
-
-For this specific variation, it includes some basic setups for projects using Vue.js, Vuex, and vue-router,  
+In addition to the basic features available in [webpack-in-5min](https://github.com/minagawah/webpack-in-5min), this repository contains settings you need for: Vue.js, Vuex, and vue-router,  
 Notice, vue-router currently does not work well with Hot Module Reloading (HMR), and you need to  
 manually refresh the browser as you change your source codes.
 
@@ -56,11 +53,10 @@ npm install
 Allows the app development using `webpack-dev-server`.
 
 ```
-gulp
+npm run dev
 ```
 
 The above is the alias for `gulp dev` which launches "webpack-dev-server".  
-(you may alternatively choose not to use `gulp` and type run `npm start`)
 
 
 ### production
@@ -68,11 +64,10 @@ The above is the alias for `gulp dev` which launches "webpack-dev-server".
 Run a production build.
 
 ```
-gulp prod
+npm run dev
 ```
 
 The above will create bundled files in `build` directory.
-(you may alternatively choose not to use `gulp` and type run `npm run build`)
 
 ## 5. Other Variations
 
@@ -84,10 +79,8 @@ This is the basic setup using Webpack.
 There are things only `gulp` can do which Webpack cannot.
 * **[webpack-in-5min-vuejs](https://github.com/minagawah/webpack-in-5min-vuejs)**  
 Example of simple Webpack setup using Vue + Vuex + vue-router.
-* **webpack-in-5min-vuejs-graphql**  
-Above settings plus a GraphQL client (probablly using Apollo).
 * **webpack-in-5min-react**  
-Still working on it...
+Almost ready to be released.
 
 Or, a nice example to illustrate how to manage client + server source codes in the same Webpack project:
 
@@ -111,7 +104,7 @@ a huge text (see the **[Demo](http://tokyo800.jp/samples/vue-word-animation-demo
 What it means when you do `npm install`:
 
 ```
-npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin webpack-cleanup-plugin copy-webpack-plugin uglify-save-license lodash.merge yargs del gulp gulp-util gulp-shell gulp-rename run-sequence
+npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin@^2.0.0-rc.3 webpack-cleanup-plugin copy-webpack-plugin uglify-save-license lodash.merge yargs
 
 npm install --save seedrandom vue vue-router vuex vue-resource three
 ```
@@ -148,12 +141,6 @@ copy-webpack-plugin
 uglify-save-license
 lodash.merge
 yargs
-del
-gulp
-gulp-util
-gulp-shell
-gulp-rename
-run-sequence
 ```
 
 For `Dependencies`:
@@ -168,19 +155,6 @@ three
 ```
 
 ### <a name="remove_unnecessary_packages"></a>Removing Unnecessary Packages
-
-#### Uninstalling "gulp"
-
-If you prefer not to use `gulp` at all, and want to entirely use `npm` command instread, you can uninstall the following packages:
-
-```
-del
-gulp
-gulp-rename
-gulp-shell
-gulp-util
-run-sequence
-```
 
 #### Uninstalling "Three.js"
 

@@ -1,14 +1,14 @@
 /**
  * webpack.config.common.js
  */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-var common_exclude_path = new RegExp('(?:node_modules|bower_components|build)');
+const common_exclude_path = new RegExp('(?:node_modules|bower_components|build)');
 
-export default {
+module.exports = {
 	// Remove the heading "src" from the output paths of images
 	// when [path] is specified for "file-loader" on the images.
 	// ex.
@@ -19,57 +19,122 @@ export default {
 		path: path.join(__dirname, 'build')
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				enforce: 'pre',
 				test: /\.js$/,
 				include: [ path.join(__dirname, 'src') ],
 				exclude: /(?:node_modules|bower_components|build)/,
-				loader: 'eslint'
+				use: [{ loader: 'eslint-loader' }]
 			},
 			{
-				test: /\.html/,
+				test: /\.html$/,
 				exclude: common_exclude_path,
 				// Setting "?-minimize" or "?minimize=false" prevents "build/index.html"
 				// from being minified. Make sure NOT to apply "html-loader"
 				// to HtmlWebpackPlugin (when you specify its template).
-				loader: 'html?-minimize'
+				use: [{
+					loader: 'html-loader',
+					options: {
+						// Prevents "build/index.html" from being minified.
+						// Make sure NOT to apply "html-loader"
+						// to HtmlWebpackPlugin (when you specify its template).
+						minimize: false
+					}
+				}]
 			},
 			{
-				test: /\.png/,
+				test: /\.png$/,
 				exclude: common_exclude_path,
-				// Using "file-loader" instead of "url-loader" to prevent from
-				// the image data to be converted to Base64.
-				loader: 'file?limit=10000&mimetype=image/png&name=[path][name].[hash].[ext]'
+				// Use "file-loader" instead of "url-loader"
+				// to prevent image data to be converted to Base64.
+				// Also, avoid [path][name].[hash].[ext] for filenames
+				// otherwise it will becomes the local path (ex. file://...)
+				// and the path will not be resolved:
+				//    "Not allowed to load local resource"
+				use: [{
+					loader: 'file-loader',
+					options: {
+						limit: 10000,
+						mimetype: 'image/png',
+						name: '[name].[hash].[ext]'
+					}
+				}]
 			},
 			{
-				test: /\.jpg/,
+				test: /\.jpg$/,
 				exclude: common_exclude_path,
-				loader: 'file?limit=10000&mimetype=image/jpg&name=[path][name].[hash].[ext]'
+				// Use "file-loader" instead of "url-loader"
+				// to prevent image data to be converted to Base64.
+				// Also, avoid [path][name].[hash].[ext] for filenames
+				// otherwise it will becomes the local path (ex. file://...)
+				// and the path will not be resolved:
+				use: [{
+					loader: 'file-loader',
+					options: {
+						limit: 10000,
+						mimetype: 'image/jpg',
+						name: '[name].[hash].[ext]'
+						// name: '[name].[ext]'
+					}
+				}]
 			},
 			{
 				test: /\.gif/,
 				exclude: common_exclude_path,
-				loader: 'file?limit=10000&mimetype=image/gif&name=[path][name].[hash].[ext]'
+				// Use "file-loader" instead of "url-loader"
+				// to prevent image data to be converted to Base64.
+				// Also, avoid [path][name].[hash].[ext] for filenames
+				// otherwise it will becomes the local path (ex. file://...)
+				// and the path will not be resolved:
+				use: [{
+					loader: 'file-loader',
+					options: {
+						limit: 10000,
+						mimetype: 'image/gif',
+						name: '[name].[hash].[ext]'
+						// name: '[name].[ext]'
+					}
+				}]
 			},
 			{
 				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 				exclude: common_exclude_path,
-				loader: 'file?limit=10000&mimetype=image/svg+xml&name=[path][name].[hash].[ext]'
+				// Use "file-loader" instead of "url-loader"
+				// to prevent image data to be converted to Base64.
+				// Also, avoid [path][name].[hash].[ext] for filenames
+				// otherwise it will becomes the local path (ex. file://...)
+				// and the path will not be resolved:
+				use: [{
+					loader: 'file-loader',
+					options: {
+						limit: 10000,
+						mimetype: 'image/svg+xml',
+						name: '[name].[hash].[ext]'
+					}
+				}]
 			},
 			{
 				test: /\.(woff|woff2)$/,
 				exclude: common_exclude_path,
-				loader: 'file?prefix=font/&limit=5000&name=[path][name].[hash].[ext]'
+				// Use "file-loader" instead of "url-loader"
+				// to prevent image data to be converted to Base64.
+				// Also, avoid [path][name].[hash].[ext] for filenames
+				// otherwise it will becomes the local path (ex. file://...)
+				// and the path will not be resolved:
+				use: [{
+					loader: 'file-loader',
+					options: {
+						prefix: 'font',
+						limit: 5000,
+						name: '[name].[hash].[ext]'
+					}
+				}]
 			}
 		]
 	},
-	eslint: {
-		configFile: path.join(__dirname, '.eslintrc'),
-		formatter: require('eslint-friendly-formatter')
-	},
 	resolve: {
-		extensions: ['', '.js'], // resolves filename even when not specified
+		extensions: ['.js'], // resolves filename even when not specified
 		alias: {
 			// ex.
 			//   var config = require('config');
@@ -95,6 +160,16 @@ export default {
 				from: path.resolve(__dirname, 'src/lib/vendor/html5shiv.min.js'),
 				to: 'js/lib/vendor'
 			}
-		])
+		]),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				eslint: {
+					configFile: path.join(__dirname, '.eslintrc'),
+					formatter: require('eslint-friendly-formatter'),
+					// https://github.com/MoOx/eslint-loader#emiterror-default-false
+					emitError: true
+				}
+			}
+		})
 	]
 };
