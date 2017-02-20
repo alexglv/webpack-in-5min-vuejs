@@ -62,7 +62,7 @@ This is an alias for `npm run server` which launches "webpack-dev-server".
 Run a production build.
 
 ```
-npm run dev
+npm run prod
 ```
 
 which is an alias for `npm run build` and will produce bundled files under `build` directory.
