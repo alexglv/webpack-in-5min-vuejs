@@ -13,8 +13,6 @@ In addition to the basic features available in [webpack-in-5min](https://github.
 Notice, vue-router currently does not work well with Hot Module Reloading (HMR), and you need to  
 manually refresh the browser as you change your source codes.
 
-If you prefer NOT to use `gulp`, or you want to uninstall some packages, there is [a guide to remove unnecessary packages](#remove_unnecessary_packages).
-
 [Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)
 
 To demonstrate the page transition using vue-router, we have a rotating 3D cube using Three.js  
@@ -56,7 +54,7 @@ Allows the app development using `webpack-dev-server`.
 npm run dev
 ```
 
-The above is the alias for `gulp dev` which launches "webpack-dev-server".  
+This is an alias for `npm run server` which launches "webpack-dev-server".  
 
 
 ### production
@@ -67,7 +65,7 @@ Run a production build.
 npm run dev
 ```
 
-The above will create bundled files in `build` directory.
+which is an alias for `npm run build` and will produce bundled files under `build` directory.
 
 ## 5. Other Variations
 
