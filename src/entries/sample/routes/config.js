@@ -1,5 +1,5 @@
 /**
- * entries/grid/config.js
+ * entries/sample/config.js
  */
 
 export default {

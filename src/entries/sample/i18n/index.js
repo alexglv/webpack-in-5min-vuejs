@@ -1,5 +1,5 @@
 /**
- * entries/grid/i18n/index.js
+ * entries/sample/i18n/index.js
  * Although we're using "vue-i18n", it does not provide
  * Vuex state managements. So, the bellow settings are for
  * our own state management using Vuex...

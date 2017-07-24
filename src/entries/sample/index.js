@@ -1,5 +1,5 @@
 /**
- * entries/grid/index.js
+ * entries/sample/index.js
  */
 import merge from 'lodash.merge';
 import 'whatwg-fetch';
@@ -17,8 +17,8 @@ import config_1 from './config';
 import utils from '../../lib/utils';
 import store from './store';
 import i18n from './i18n';
-import route_to_grid from './routes/grid';
-import route_to_wiki from './routes/grid2';
+import route_to_webgl from './routes/webgl';
+import route_to_wiki from './routes/wiki';
 import './style.styl';
 
 const assign          = merge;
@@ -37,18 +37,18 @@ const config = assign({}, config_0, config_1);
 // Consider making "router" into an external module
 // if you are not referencing local methods or variables.
 //
-// http://localhost:8080/grid.html#/grid
-// http://localhost:8080/grid.html#/wiki
+// http://localhost:8080/sample.html#/webgl
+// http://localhost:8080/sample.html#/wiki
 //
 // Sometimes you want "/" instead of "#".
 // Such that:
-//    http://localhost:8080/grid.html/grid
-//    http://localhost:8080/grid.html/wiki
+//    http://localhost:8080/sample.html/webgl
+//    http://localhost:8080/sample.html/wiki
 // If such the case, set the routing "mode" specifically to "history":
 //    {
 //       mode: 'history',
 //    }
-// Also, since your server will mistakenly consider "grid.html" to be a directory,
+// Also, since your server will mistakenly consider "sample.html" to be a directory,
 // so you need a special routing in your server-side application.
 //
 // then you have "/" instead of "#".
@@ -56,18 +56,18 @@ const config = assign({}, config_0, config_1);
 //    mode: 'history',
 //    base: '/v1/app',
 // }
-// http://localhost:8080/v1/app/grid
+// http://localhost:8080/v1/app/webgl
 // http://localhost:8080/v1/app/wiki
 //
 //
 const router = new VueRouter({
 	base: '/',
 	routes: [
-		{ path: '/', redirect: '/grid' },
+		{ path: '/', redirect: '/webgl' },
 		{
-			name: 'grid',
-			path: '/grid',
-			component: route_to_grid
+			name: 'webgl',
+			path: '/webgl',
+			component: route_to_webgl
 			// beforeEnter: (to, from, next) => { next(); }
 		},
 		{
@@ -110,11 +110,11 @@ const App = new Vue({
 	},
 	watch: {
 		// '$route' (to, from) {
-		//  console.log('[grid]   Switched from "' + from.path + '" to "' + to.path + '".');
+		//  console.log('[webgl]   Switched from "' + from.path + '" to "' + to.path + '".');
 		// },
 		locale: function() {
 			this.$i18n.locale = this.locale;
-			// console.log('[grid]   locale has changed: ' + this.locale);
+			// console.log('[webgl]   locale has changed: ' + this.locale);
 		}
 	}
 }).$mount('#app');
@@ -126,7 +126,7 @@ const App = new Vue({
  */
 function create() {
 	// mosaikekkan
-	console.log('[entries.grid.index] +++++++ create()');
+	console.log('[entries.sample.index] +++++++ create()');
 
 	// Why using "utils.debounce"?
 	// Every time screen size changes, it calls "resize()"
@@ -167,7 +167,7 @@ function set_locale(locale) {
  */
 function resize() {
 	// mosaikekkan
-	console.log('[entries.grid.index] +++++++ resize()');
+	console.log('[entries.sample.index] +++++++ resize()');
 	this.$store.dispatch('set_screen_size');
 }
 
