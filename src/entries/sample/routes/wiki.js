@@ -23,8 +23,14 @@ export default {
 			keywords: ''
 		};
 	},
+	props: {
+		translate:			{ required: true, type: Function },
+		set_locale:			{ required: true, type: Function }
+	},
 	computed: {
 		...mapState({
+			screen: state => state.shared.screen,
+			locale: state => state.i18n.locale,
 			is_searching: state => state.wiki.searching,
 			search_result_list: state => state.wiki.list
 		})
