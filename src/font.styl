@@ -1,0 +1,42 @@
+/**
+ * font.styl
+ */
+
+/*
+12px = 9pt = 0.73em
+16px = 12pt = 1.0em
+22px = 16.5pt = 1.37em
+24px = 18pt = 1.5em
+30px = 22.5pt = 1.875em
+35px = 26.25pt = 2.188em
+*/
+
+px-to-em(px)
+	px / 16
+
+min-font-px = 10
+med-font = 16
+max-font-px = 21
+min-font-px-str = "%s%s" % (min-font-px px)
+max-font-px-str = "%s%s" % (max-font-px px)
+
+min-line-height-em = 1
+max-line-height-em = 3
+min-line-height-em-str = "%s%s" % (min-line-height-em em)
+max-line-height-em-str = "%s%s" % (max-line-height-em em)
+
+min-viewport-px = 300
+max-viewport-px = 1920
+min-viewport-px-str = "%s%s" % (min-viewport-px px)
+max-viewport-px-str = "%s%s" % (max-viewport-px px)
+min-viewport-em = px-to-em(min-viewport-px)
+max-viewport-em = px-to-em(max-viewport-px)
+min-viewport-em-str = "%s%s" % (min-viewport-em em)
+max-viewport-em-str = "%s%s" % (max-viewport-em em)
+
+auto-line-height()
+	line-height: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-line-height-em-str max-line-height-em min-line-height-em min-viewport-em-str max-viewport-em min-viewport-em)
+
+auto-font-size()
+	font-size: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-font-px-str max-font-px min-font-px min-viewport-px-str max-viewport-px min-viewport-px)
+

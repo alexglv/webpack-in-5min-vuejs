@@ -1,0 +1,27 @@
+<div id="wiki-container">
+	<topmenu page="wiki">
+		<span slot="page-navi">
+			| <a href="/">Top</a>
+			| <router-link to="/grid">WebGL Grid</router-link>
+			| Wiki Search |
+		</span>
+		<span slot="page-title">Wiki Search</span>
+	</topmenu>
+	<div id="search-box">
+		<div><input id="keywords" v-model="keywords" placeholder="Type to search"></div>
+		<div id="searching" v-if="is_searching">Searching...</div>
+	</div>
+	<transition-group
+		tag="div"
+		id="search-result-list-wrapper"
+		name="switch-search-result-list"
+		v-if="search_result_list">
+		<div tag="div"
+			 class="search-result-item"
+			 v-for="item in search_result_list"
+			 v-bind:key="item.id">
+			<a :href="item.url" target="blank">{{ item.title }}</a>
+		</div>
+	</transition-group>
+</div>
+
