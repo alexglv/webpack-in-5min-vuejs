@@ -1,5 +1,5 @@
 /**
- * entries/grid/routes/grid/components/topmenu.js
+ * entries/sample/routes/webgl/components/topmenu.js
  */
 import Vue from 'vue';
 import template from './topmenu.html';

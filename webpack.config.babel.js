@@ -27,10 +27,10 @@ const asset_name = 'dist/assets/[name].[hash].[ext]';
 
 export default {
 	context: path.join(__dirname, 'src'),
-	// This project has only 2 entries, namely, "grid" and "vendor".
+	// This project has only 2 entries, namely, "sample" and "vendor".
 	entry: {
-		// We want "grid.js" as the outcomme for "public/grid/index.html" to use.
-		grid: path.resolve(__dirname + '/src/entries/grid/index.js'),
+		// We want "sample.js" as the outcomme for "public/sample/index.html" to use.
+		sample: path.resolve(__dirname + '/src/entries/sample/index.js'),
 		// We want a separate output for all the vendor provided codes into "vendor.js".
 		vendor: [
 			'lodash.merge','seedrandom','whatwg-fetch','three',
@@ -42,8 +42,8 @@ export default {
 		path: path.join(__dirname, 'public'),
 		// Filename that you want to output your code to.
 		// For this project has only 2 entries,
-		// namely, "grid" and "vendor",
-		// the [name] would be either "grid" or "vendor".
+		// namely, "sample" and "vendor",
+		// the [name] would be either "sample" or "vendor".
 		filename: 'dist/js/[name].js'
 	},
 	module: {

@@ -1,5 +1,5 @@
 /**
- * entries/grid/routes/grid2_store.js
+ * entries/sample/routes/wiki_store.js
  */
 import Vue from 'vue';
 import utils from '../../../lib/utils';
@@ -25,7 +25,7 @@ export default {
 	},
 	// Actions are triggered from elsewhere via "dispatch".
 	actions: {
-		// This action is called from "entries/grid2.js":
+		// This action is called from "entries/sample2.js":
 		//    store.dispatch('wiki_search', text)
 		// When triggered multiple times within 1000 msec,
 		// it will debounce the event, meaning, only the last one
@@ -34,7 +34,7 @@ export default {
 			wiki_search,
 			1000
 		),
-		// This action is called from "entries/grid2.js":
+		// This action is called from "entries/sample2.js":
 		//    store.dispatch('wiki_set_list', [])
 		// in order to clear the input form for keywords.
 		wiki_clear_list({state, dispatch, commit}) {
@@ -51,11 +51,11 @@ export default {
  */
 function wiki_search({state, dispatch, commit}, text = '') {
 	if (utils.is_online() !== true) {
-		console.warn('[entries.grid.routes.grid2_store]   no network');
+		console.warn('[entries.sample.routes.wiki_store]   no network');
 		return;
 	}
 	if (state.searching === true) {
-		console.log('[entries.grid.routes.grid2_store] searching...');
+		console.log('[entries.sample.routes.wiki_store] searching...');
 		return;
 	}
 	commit('set_searching', true);
@@ -79,13 +79,13 @@ function wiki_search({state, dispatch, commit}, text = '') {
 		commit('set_searching', false);
 	};
 	// mosaikkekan
-	console.log('[entries.grid.routes.grid2_store]   options:', options);
+	console.log('[entries.sample.routes.wiki_store]   options:', options);
 	try {
 		Vue.http.jsonp('https://en.wikipedia.org/w/api.php', options)
 			.then(res => {
 				res.json().then((data = {}, i) => {
 					// mosaikkekan
-					console.log('[entries.grid.routes.grid2_store]   data:', data);
+					console.log('[entries.sample.routes.wiki_store]   data:', data);
 					// let { query = {} } = data || {};
 					// let { search = [] } = query;
 					let search = Maybe.of(data).map(path(['query','search'])).orElse([]).join();
@@ -112,13 +112,13 @@ function wiki_search({state, dispatch, commit}, text = '') {
 				}).catch(done);
 			}, e => {
 				console.warn(
-					'[entries.grid.routes.grid2_store]   err: ' + (e.statusText ? e.statusText : 'server error'));
+					'[entries.sample.routes.wiki_store]   err: ' + (e.statusText ? e.statusText : 'server error'));
 				done(e);
 			})
 			.catch(done);
 	}
 	catch (e) {
-		console.warn('[entries.grid.routes.grid2_store]   err: server has gone mad');
+		console.warn('[entries.sample.routes.wiki_store]   err: server has gone mad');
 		done(e);
 	}
 }

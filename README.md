@@ -18,14 +18,14 @@ A minimalistic setup suitable for basic development using Webpack (with Vue.js +
 
 ## 1. <a name="about"></a>About This Project
 
-If you want ** *to launch your new project immediately,
-you should use ["vue-cli"](https://github.com/vuejs/vue-cli).* **  
-But, if you want ** *to configure your project the way you like it,* **  
+If you want ***to launch your new project immediately,
+you should use ["vue-cli"](https://github.com/vuejs/vue-cli).***  
+But, if you want ***to configure your project the way you like it,***  
 you are in the right spot.
 
 Often a time, when I create a new project, I do it from a scratch.  
-Doing so, ** *I usually need previous projects for reference from which  
-I can copy + paste whatever I want for the new one.* **
+Doing so, ***I usually need previous projects for reference from which  
+I can copy + paste whatever I want for the new one.***
 
 This project is, basically, just a *"reference"*.  
 Please feel free to copy + paste whatever you want.  
@@ -37,7 +37,7 @@ Please feel free to copy + paste whatever you want.
 Because I tend to work with projects that usually have
 already existing server-side framework such as *Laravel* or *Express*,
 instread of using *HTML Webpack Plugin* to dynamically generate HTML files,
-I embedded *Vue* app within a static HTML file (namely, `public/grid.html`).  
+I embedded *Vue* app within a static HTML file (namely, `public/sample.html`).  
 Also, the embedded app uses *vue-router" to serve more routed pages.
 Most of the states are managed by *"Vuex"*
 (including the one for localizations, which uses *"vue-i18n"*)  
@@ -71,8 +71,8 @@ cd path/to/your/own/workspace
 git clone https://github.com/minagawah/webpack-in-5min-vuejs.git
 ```
 
-Since the project mainly intends to ** *provide you with some sample codes and settings,  
-simply running it is not very recommended.* ** However, because you need to run it anyways  
+Since the project mainly intends to ***provide you with some sample codes and settings,  
+simply running it is not very recommended.*** However, because you need to run it anyways  
 in order to check how it goes, here's how you install npm modules:
 
 Install npm packages.
@@ -83,6 +83,10 @@ npm install
 ```
 
 ## 4. <a name="updates"></a>Updates
+
+**Ver. 1.2.0 --> 1.2.1**
+
+- Changed filenames for HTML files and routings.
 
 **Ver. 1.1.2 --> 1.2.0**
 
@@ -102,7 +106,7 @@ npm run dev
 ```
 
 Launches `webpack-dev-server` at port `8080`.  
-The app will be built, but ** *you won't see them because they are on memory.* **
+The app will be built, but ***you won't see them because they are on memory.***
 
 ### For "production"
 
@@ -123,30 +127,30 @@ Likewise, asset files are found under `public/dist/assets`.
 Notice we have two HTML files under `public` directory:
 
 - index.html
-- grid.html
+- sample.html
 
 The former provides a link, and pretty much does nothing more.  
 The latter, however, is where you see all the *Vue* magic happens.  
 So, it is apparent that you have at least two of the following URLs:
 
 http://localhost:8080/index.html  
-http://localhost:8080/grid.html
+http://localhost:8080/sample.html
 
-#### (b) We have "two" entry points for "grid.html"
+#### (b) We have "two" entry points for "sample.html"
 
-Now, open `public/grid.html` and you will find the following code:
+Now, open `public/sample.html` and you will find the following code:
 
 ```
 <script src="dist/js/vendor.js"></script>
-<script src="dist/js/grid.js"></script>
+<script src="dist/js/sample.js"></script>
 ```
 
-It signifies that it may probablly generate `dist/js/grid.js` when you run the build.  
+It signifies that it may probablly generate `dist/js/sample.js` when you run the build.  
 Looking at `webpack.config.babel.js`, you see two entry points defined:
 
 ```
 entry: {
-    grid: path.resolve(__dirname + '/src/entries/grid/index.js'),
+    sample: path.resolve(__dirname + '/src/entries/sample/index.js'),
     vendor: [
         'lodash.merge','seedrandom','whatwg-fetch','three',
         'vue','vuex','vue-resource','vue-i18n','vue-router'
@@ -155,8 +159,8 @@ entry: {
 ```
 
 As it literary denotes, "vender" contains all the third party modules, and will be compiled to `dist/js/vendor.js`.  
-"grid" is what your `public/grid.html` refers to,
-and it's pointing toward `src/entries/grid/index.js`.  
+"sample" is what your `public/sample.html` refers to,
+and it's pointing toward `src/entries/sample/index.js`.  
 Again, as you open the program, you find *Vue* app is bound to an element with an ID called, *"#app"*.
 
 ```
@@ -165,7 +169,7 @@ const App = new Vue({
 }).$mount('#app');
 ```
 
-And, you may find the ID in `public/grid.html` accordingly:
+And, you may find the ID in `public/sample.html` accordingly:
 
 ```
 <div id="app">
@@ -173,56 +177,56 @@ And, you may find the ID in `public/grid.html` accordingly:
 </div>
 ```
 
-#### (c) We also have "two" vue-routing pages for "grid.html"
+#### (c) We also have "two" vue-routing pages for "sample.html"
 
 Now, you may have noticed that we have `<router-view></router-view>` above.  
 It means the app is using `vue-router` as well.  
-Our `public/grid.html` does not only provide a *Vue* page,
+Our `public/sample.html` does not only provide a *Vue* page,
 but it also servers several other routed sub-pages.  
 Here are the sub-pages provided:
 
-http://localhost:8080/grid.html#/grid  
-http://localhost:8080/grid.html#/wiki
+http://localhost:8080/sample.html#/webgl  
+http://localhost:8080/sample.html#/wiki
 
 
 ### 6-2. <a name="extra_routings"></a>Other Routing Preferences
 
 #### (a) Using "Express" to serve Vue pages
 
-Followings are the extra settings if you donnot want a static HTML (I mean of `public/grid.html`) serving the page,  
+Followings are the extra settings if you donnot want a static HTML (I mean of `public/sample.html`) serving the page,  
 but you want your server-side framework (let's suppose you are using `Express`) to render the page.  
-Also, say, you want to use `/app/v1/grid` for the base directory.
+Also, say, you want to use `/app/v1/sample` for the base directory.
 
 Like this:
 
-http://localhost:8080/v1/app/grid/grid  
-http://localhost:8080/v1/app/grid/wiki
+http://localhost:8080/v1/app/sample/webgl  
+http://localhost:8080/v1/app/sample/wiki
 
 First of all, you need to configure the server-side routings in `Express`.
 
 ```
-app.get('/v1/app/grid', (req, res) => { res.render('v1/app/grid'); });
+app.get('/v1/app/sample', (req, res) => { res.render('v1/app/sample'); });
 ```
 
-In the above, we are expecting that you have `view/v1/app/grid.ect` for the rendered template.  
+In the above, we are expecting that you have `view/v1/app/sample.ect` for the rendered template.  
 You may not have `view` directory, but here, I am just supposing that you do for the template directory...  
 (or you may have different template extensions in accord with your templating engine choices)
 
 Now, you want your *Vue* app to use `/` instead of `#`,
 and you do that by adding `mode` attribute set to `history`.  
-Also, you want your `base` directory to point to `/v1/app/grid` instead of `/`.  
-Here is how it looks in `src/grid/index.js`:
+Also, you want your `base` directory to point to `/v1/app/sample` instead of `/`.  
+Here is how it looks in `src/sample/index.js`:
 
 ```
 const router = new VueRouter({
     mode: 'history',
-    base: '/v1/app/grid',
+    base: '/v1/app/sample',
     routes: [
-        { path: '/', redirect: '/grid' },
+        { path: '/', redirect: '/webgl' },
         {
-            name: 'grid',
-            path: '/grid',
-            component: route_to_grid
+            name: 'webgl',
+            path: '/webgl',
+            component: route_to_webgl
         },
         {
             name: 'wiki',
@@ -241,8 +245,8 @@ Now, it's working!
 You may be using *Express*, but sometimes, you want to use a *"static"* HTML to serve your *Vue* app.  
 Let's say you wan to server the following URLs:
 
-http://localhost:8080/v1/app/grid#/grid  
-http://localhost:8080/v1/app/grid#/wiki
+http://localhost:8080/v1/app/sample#/webgl  
+http://localhost:8080/v1/app/sample#/wiki
 
 When you want `public` directory to server your static files, you usuall have:
 
@@ -253,13 +257,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 You basically do the similar thing, except you need to be more specific:
 
 ```
-app.use('/v1/app/grid', express.static(path.join(__dirname, 'public/v1/app/grid.html')));
+app.use('/v1/app/sample', express.static(path.join(__dirname, 'public/v1/app/sample.html')));
 ```
 
 For your *Vue* routing, you can just say:
 
 ```
-base: '/v1/app/grid',
+base: '/v1/app/sample',
 ```
 
 and you are done.

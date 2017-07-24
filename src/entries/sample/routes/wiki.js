@@ -1,5 +1,5 @@
 /**
- * entries/grid/routes/grid2.js
+ * entries/sample/routes/wiki.js
  */
 import merge from 'lodash.merge';
 import Vue from 'vue';
@@ -8,7 +8,7 @@ import {mapState} from 'vuex';
 import config_0 from 'config';
 import config_1 from '../config';
 import utils from '../../../lib/utils';
-import template from './grid2.html';
+import template from './wiki.html';
 import topmenu from './components/topmenu.js';
 
 const assign		= merge;
@@ -48,7 +48,7 @@ export default {
 		// Watch for changes on "keywords" input form.
 		keywords: function(text) {
 			// When we have the keyword given, we dispatch an action
-			// defined in "grid2_store.js" to perform a search
+			// defined in "wiki_store.js" to perform a search
 			// using "Wiki API Search".
 			this.$store.dispatch('wiki_search', text);
 			this.$store.dispatch('wiki_clear_list');

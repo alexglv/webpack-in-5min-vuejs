@@ -1,5 +1,5 @@
 /**
- * entries/grid/routes/grid.js
+ * entries/sample/routes/webgl.js
  */
 import merge from 'lodash.merge';
 import Vue from 'vue';
@@ -8,7 +8,7 @@ import {mapState} from 'vuex';
 import config_0 from 'config';
 import config_1 from '../config';
 import utils from '../../../lib/utils';
-import template from './grid.html';
+import template from './webgl.html';
 import topmenu from './components/topmenu.js';
 
 import * as THREE from 'three';
@@ -88,7 +88,7 @@ export default {
 	},
 	watch: {
 		screen: function() {
-			console.log('[entries.grid.routes.grid]   screen size has changed');
+			console.log('[entries.sample.routes.webgl]   screen size has changed');
 			this.resize();
 		},
 		// '$route': 'fetch_all',
@@ -111,7 +111,7 @@ export default {
  */
 function set_canvas_size() {
 	// mosaikekkan
-	// console.log('[entries.grid.routes.grid] +++++++ set_canvas_size)');
+	// console.log('[entries.sample.routes.webgl] +++++++ set_canvas_size)');
 	let { innerWidth: width, innerHeight: height } = window;
 	let chk		= width * canvas_w_scale;
 	canvas_w	= (canvas_w_max > chk) ? chk : canvas_w_max;
@@ -127,7 +127,7 @@ function set_canvas_size() {
  */
 function resize() {
 	// mosaikekkan
-	console.log('[entries.grid.routes.grid] +++++++ resize()');
+	console.log('[entries.sample.routes.webgl] +++++++ resize()');
 
 	this.set_canvas_size();
 
@@ -145,7 +145,7 @@ function resize() {
  */
 function wait_for_ready() {
 	// mosaikekkan
-	// console.log('[entries.grid.routes.grid] +++++++ wait_for_ready()');
+	// console.log('[entries.sample.routes.webgl] +++++++ wait_for_ready()');
 	return utils.wait_for(
 		() => (this.is_ready ? true : false),
 		{
@@ -160,7 +160,7 @@ function wait_for_ready() {
  */
 function init() {
 	// mosaikekkan
-	console.log('[entries.grid.routes.grid] +++++++ init()');
+	console.log('[entries.sample.routes.webgl] +++++++ init()');
 	this.set_canvas_size();
 	this.wait_for_ready().then(__init.bind(this)).catch(e => console.error);
 }
@@ -171,9 +171,9 @@ function init() {
  */
 function __init() {
 	// mosaikekkan
-	console.log('[entries.routes.grid] +++++++ __init()');
-	// console.log('[entries.routes.grid]   canvas_w: ' + canvas_w);
-	// console.log('[entries.routes.grid]   canvas_h: ' + canvas_h);
+	console.log('[entries.routes.webgl] +++++++ __init()');
+	// console.log('[entries.routes.webgl]   canvas_w: ' + canvas_w);
+	// console.log('[entries.routes.webgl]   canvas_h: ' + canvas_h);
 
 	dpr = this.screen.dpr;
 
