@@ -1,0 +1,91 @@
+/**
+ * style.styl
+ */
+@import "../../font"
+@import "../../flex"
+@import "../../keyframes"
+
+default-font-color=#202020
+
+body
+	margin: 0px
+
+h3
+	margin-top: 0.3em
+	margin-bottom: 0.3em
+
+.fade-enter-active, .fade-leave-active
+	transition: opacity .3s
+
+.fade-enter, .fade-leave-to
+	opacity: 0
+
+.bold
+	font-weight: bold
+
+.large
+	font-size: 1.4em
+
+.small
+	font-size: 0.8em
+
+.x-small
+	font-size: 0.6em
+
+.center
+	text-align: center
+
+#container
+	width: 100vw
+	height: 100vh
+
+#app
+	width: 100%
+	height: 100%
+	set-flex()
+	set-flex-order-column()
+	set-flex-justify-center()
+	set-flex-align-center()
+
+.rotate
+	position: fixed
+	left: 50%
+	top: 50%
+	margin-top: -30px
+	margin-left: -30px
+	width: 60px
+	height: 60px
+	animation: rotating 1.7s linear infinite
+
+#translate-buttons
+	width: 100%
+	margin: 5px 0px
+	set-flex()
+	set-flex-order-row()
+	set-flex-justify-end()
+	set-flex-align-center()
+	button:nth-child(2)
+		margin-left: 5px
+		margin-right: 5px
+	@media screen and (max-width: 420px), screen and (max-device-width: 420px)
+		margin-top: 8px
+		button:nth-child(1)
+			margin-left: 8px
+		button:nth-child(2)
+			margin-left: 4px
+			margin-right: 8px
+
+.btn-translate
+	cursor: pointer
+	border: none
+	text-decoration: underline
+	font-size: 0.9em
+	color: #e2e2e2
+	@media screen and (max-width: 420px), screen and (max-device-width: 420px)
+		width: 50%
+		min-width: 0
+		font-size: 0.8em
+
+@import "routes/components/topmenu"
+@import "routes/grid"
+@import "routes/grid2"

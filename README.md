@@ -3,26 +3,60 @@ Webpack in 5 minutes (with Vue.js + Vuex + vue-router)
 
 A minimalistic setup suitable for basic development using Webpack (with Vue.js + Vuex + vue-router).
 
-## 1. About
+1. [About This Project](#about)  
+2. [Features](#features)  
+3. [Installation](#installation)  
+4. [Updates](#updates)  
+5. [How To Build](#how_to_build)  
+6. [Entry Points & URLs](#entry_points_urls)  
+  6-1. [URL Routings Explained](#routings_explained)  
+  6-2. [Other Routing Preferences](#extra_routings)  
+7. [Notes](#notes)  
+  7-1. [Installed "npm" packages](#installed_packages)  
+  7-2. [Removing Unnecessary Packages](#remove_unnecessary_packages)
 
-Whenever I create new projects, I always faced with the demand of having a minimalistic Webpack setups ready,  
-so that I can just reuse it elsewhere. Now, I hope this thing will make my life a little bit easier,  
-and so it will for those who have the similar issues as I have.
 
-In addition to the basic features available in [webpack-in-5min](https://github.com/minagawah/webpack-in-5min), this repository contains settings you need for: Vue.js, Vuex, and vue-router,  
-Notice, vue-router currently does not work well with Hot Module Reloading (HMR), and you need to  
-manually refresh the browser as you change your source codes.
+## 1. <a name="about"></a>About This Project
 
-[Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)
+If you want ** *to launch your new project immediately,
+you should use ["vue-cli"](https://github.com/vuejs/vue-cli).* **  
+But, if you want ** *to configure your project the way you like it,* **  
+you are in the right spot.
 
-To demonstrate the page transition using vue-router, we have a rotating 3D cube using Three.js  
-for the first page, and a keyword search on Wikipedia in which the events are handled by Vuex.
+Often a time, when I create a new project, I do it from a scratch.  
+Doing so, ** *I usually need previous projects for reference from which  
+I can copy + paste whatever I want for the new one.* **
 
-## 2. Features
+This project is, basically, just a *"reference"*.  
+Please feel free to copy + paste whatever you want.  
+*As it helps me out in great deal, hope it does to you!*
 
-Look into each file. I added a bunch of comments explaining what they actually do.
 
-## 3. Installation
+## 2. <a name="features"></a>Features
+
+Because I tend to work with projects that usually have
+already existing server-side framework such as *Laravel* or *Express*,
+instread of using *HTML Webpack Plugin* to dynamically generate HTML files,
+I embedded *Vue* app within a static HTML file (namely, `public/grid.html`).  
+Also, the embedded app uses *vue-router" to serve more routed pages.
+Most of the states are managed by *"Vuex"*
+(including the one for localizations, which uses *"vue-i18n"*)  
+As for the codes, they'are partially functional, but not the whole
+(because it sometimes makes others hard to read).
+
+- *ES6 with Babel*
+- *Webpack 3.1.0*
+- *Webpack Dev Server* <-- for the develoment build (HMR enabled)
+- *uglify-save-license* <-- prevents vendor license descriptions from being uglified
+- *eslint*
+- *stylus*
+- *Vue 2.3.4*
+- *Vuex*
+- *vue-router*
+- *vue-i18n* <-- using *Vuex* for the state management
+- *ThreeJS*
+
+## 3. <a name="installation"></a>Installation
 
 Make sure you have `babel-cli` installed globally.
 
@@ -37,6 +71,10 @@ cd path/to/your/own/workspace
 git clone https://github.com/minagawah/webpack-in-5min-vuejs.git
 ```
 
+Since the project mainly intends to ** *provide you with some sample codes and settings,  
+simply running it is not very recommended.* ** However, because you need to run it anyways  
+in order to check how it goes, here's how you install npm modules:
+
 Install npm packages.
 
 ```
@@ -44,72 +82,206 @@ cd webpack-in-5min-vuejs
 npm install
 ```
 
-## 4. Usage
+## 4. <a name="updates"></a>Updates
 
-### development
+**Ver. 1.1.2 --> 1.2.0**
 
-Allows the app development using `webpack-dev-server`.
+- Webpack 1.14.0 --> 3.1.0
+- No more *HTML Webpack Plugin* to auto-generate HTMLs, but the app is embedded within a static HTML file.
+- Uses *vue-i18n* for internationalization.
+- *gulp* is removed.
+- Uses a single `webpack.config.babel.js` file to control *dev* and *prod*.
+
+
+## 5. <a name="how_to_build"></a>How To Build
+
+### For "development"
 
 ```
 npm run dev
 ```
 
-This is an alias for `npm run server` which launches "webpack-dev-server".  
+Launches `webpack-dev-server` at port `8080`.  
+The app will be built, but ** *you won't see them because they are on memory.* **
 
-
-### production
-
-Run a production build.
+### For "production"
 
 ```
 npm run prod
 ```
 
-which is an alias for `npm run build` and will produce bundled files under `build` directory.
+You will find the built chunks under `public/dist/js` directory.  
+Likewise, asset files are found under `public/dist/assets`.
 
-## 5. Other Variations
 
-List of projects that are based on [webpack-in-5min](https://github.com/minagawah/webpack-in-5min):
+## 6. <a name="entry_points_urls"></a>Entry Points & URLs
 
-* **[webpack-in-5min](https://github.com/minagawah/webpack-in-5min)**  
-This is the basic setup using Webpack.
-* **[webpack-in-5min-with-gulp](https://github.com/minagawah/webpack-in-5min-with-gulp)**  
-There are things only `gulp` can do which Webpack cannot.
-* **[webpack-in-5min-vuejs](https://github.com/minagawah/webpack-in-5min-vuejs)**  
-Example of simple Webpack setup using Vue + Vuex + vue-router.
-* **webpack-in-5min-react**  
-Almost ready to be released.
+### 6-1. <a name="routings_explained"></a>URL Routings Explained
 
-Or, a nice example to illustrate how to manage client + server source codes in the same Webpack project:
+#### (a) We have "two" static pages
 
-* **[vue-quick-delivery](https://github.com/minagawah/vue-quick-delivery)**  
-Managing client and server source codes using Webpack (Express + Vue.js).
+Notice we have two HTML files under `public` directory:
 
-Or, if you are interested in Vue.js, I have some samples using Vue.js:
+- index.html
+- grid.html
 
-* **[vue-change-canvas-demo](https://github.com/minagawah/vue-change-canvas-demo)**  
-Demonstrates how we handle several canvas scenes switched back and forth. Some of the animations  
-uses Vue.js's features. Check out how easy it is to implement using their features (see the **[Demo](http://tokyo800.jp/samples/vue-change-canvas-demo)** ).
-* **[vue-word-animation-demo](https://github.com/minagawah/vue-word-animation-demo)**  
-As everyone uploads photos to a server, this client program keep watches the uploaded photos,  
-and once we retrieve some, these photos are gathered into one place in the galaxy to form  
-a huge text (see the **[Demo](http://tokyo800.jp/samples/vue-word-animation-demo)** ).
+The former provides a link, and pretty much does nothing more.  
+The latter, however, is where you see all the *Vue* magic happens.  
+So, it is apparent that you have at least two of the following URLs:
 
-## 6. Notes
+http://localhost:8080/index.html  
+http://localhost:8080/grid.html
 
-### Installed "npm" packages
+#### (b) We have "two" entry points for "grid.html"
+
+Now, open `public/grid.html` and you will find the following code:
+
+```
+<script src="dist/js/vendor.js"></script>
+<script src="dist/js/grid.js"></script>
+```
+
+It signifies that it may probablly generate `dist/js/grid.js` when you run the build.  
+Looking at `webpack.config.babel.js`, you see two entry points defined:
+
+```
+entry: {
+    grid: path.resolve(__dirname + '/src/entries/grid/index.js'),
+    vendor: [
+        'lodash.merge','seedrandom','whatwg-fetch','three',
+        'vue','vuex','vue-resource','vue-i18n','vue-router'
+    ]
+}
+```
+
+As it literary denotes, "vender" contains all the third party modules, and will be compiled to `dist/js/vendor.js`.  
+"grid" is what your `public/grid.html` refers to,
+and it's pointing toward `src/entries/grid/index.js`.  
+Again, as you open the program, you find *Vue* app is bound to an element with an ID called, *"#app"*.
+
+```
+const App = new Vue({
+    ...
+}).$mount('#app');
+```
+
+And, you may find the ID in `public/grid.html` accordingly:
+
+```
+<div id="app">
+    <router-view></router-view>
+</div>
+```
+
+#### (c) We also have "two" vue-routing pages for "grid.html"
+
+Now, you may have noticed that we have `<router-view></router-view>` above.  
+It means the app is using `vue-router` as well.  
+Our `public/grid.html` does not only provide a *Vue* page,
+but it also servers several other routed sub-pages.  
+Here are the sub-pages provided:
+
+http://localhost:8080/grid.html#/grid  
+http://localhost:8080/grid.html#/wiki
+
+
+### 6-2. <a name="extra_routings"></a>Other Routing Preferences
+
+#### (a) Using "Express" to serve Vue pages
+
+Followings are the extra settings if you donnot want a static HTML (I mean of `public/grid.html`) serving the page,  
+but you want your server-side framework (let's suppose you are using `Express`) to render the page.  
+Also, say, you want to use `/app/v1/grid` for the base directory.
+
+Like this:
+
+http://localhost:8080/v1/app/grid/grid  
+http://localhost:8080/v1/app/grid/wiki
+
+First of all, you need to configure the server-side routings in `Express`.
+
+```
+app.get('/v1/app/grid', (req, res) => { res.render('v1/app/grid'); });
+```
+
+In the above, we are expecting that you have `view/v1/app/grid.ect` for the rendered template.  
+You may not have `view` directory, but here, I am just supposing that you do for the template directory...  
+(or you may have different template extensions in accord with your templating engine choices)
+
+Now, you want your *Vue* app to use `/` instead of `#`,
+and you do that by adding `mode` attribute set to `history`.  
+Also, you want your `base` directory to point to `/v1/app/grid` instead of `/`.  
+Here is how it looks in `src/grid/index.js`:
+
+```
+const router = new VueRouter({
+    mode: 'history',
+    base: '/v1/app/grid',
+    routes: [
+        { path: '/', redirect: '/grid' },
+        {
+            name: 'grid',
+            path: '/grid',
+            component: route_to_grid
+        },
+        {
+            name: 'wiki',
+            path: '/wiki',
+            component: route_to_wiki
+        }
+    ]
+});
+```
+
+Now, it's working!
+
+
+#### (b) Using "Express"... but with static HTMLs
+
+You may be using *Express*, but sometimes, you want to use a *"static"* HTML to serve your *Vue* app.  
+Let's say you wan to server the following URLs:
+
+http://localhost:8080/v1/app/grid#/grid  
+http://localhost:8080/v1/app/grid#/wiki
+
+When you want `public` directory to server your static files, you usuall have:
+
+```
+app.use(express.static(path.join(__dirname, 'public')));
+```
+
+You basically do the similar thing, except you need to be more specific:
+
+```
+app.use('/v1/app/grid', express.static(path.join(__dirname, 'public/v1/app/grid.html')));
+```
+
+For your *Vue* routing, you can just say:
+
+```
+base: '/v1/app/grid',
+```
+
+and you are done.
+
+## 7. <a name="notes"></a>Notes
+
+### 7-1. <a name="installed_packages"></a>Installed "npm" packages
 
 What it means when you do `npm install`:
 
 ```
-npm install --save-dev babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter html-webpack-plugin extract-text-webpack-plugin@^2.0.0-rc.3 webpack-cleanup-plugin copy-webpack-plugin uglify-save-license lodash.merge yargs
+npm install --save-dev lodash.merge lodash.mergewith yargs babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader postcss-loader autoprefixer-stylus exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter extract-text-webpack-plugin@^3.0.0-rc.1 webpack-cleanup-plugin copy-webpack-plugin uglify-save-license
 
-npm install --save seedrandom vue vue-router vuex vue-resource three
+npm install --save lodash.merge lodash.mergewith seedrandom whatwg-fetch three web-animations-js vue vue-router vuex vue-resource vue-i18n
 ```
 
 meaning, you have installed the followings for `devDependencies`:
 
 ```
+lodash.merge
+lodash.mergewith
+yargs
 babel-core
 babel-runtime
 babel-preset-es2015
@@ -125,6 +297,8 @@ style-loader
 css-loader
 stylus
 stylus-loader
+postcss-loader
+autoprefixer-stylus
 exports-loader
 imports-loader
 eslint
@@ -132,29 +306,31 @@ eslint-loader
 babel-eslint
 eslint-plugin-html
 eslint-friendly-formatter
-html-webpack-plugin
-extract-text-webpack-plugin
+extract-text-webpack-plugin@^3.0.0-rc.1
 webpack-cleanup-plugin
 copy-webpack-plugin
 uglify-save-license
-lodash.merge
-yargs
 ```
 
 For `Dependencies`:
 
 ```
+lodash.merge
+lodash.mergewith
 seedrandom
+whatwg-fetch
+three
+web-animations-js
 vue
 vue-router
 vuex
 vue-resource
-three
+vue-i18n
 ```
 
-### <a name="remove_unnecessary_packages"></a>Removing Unnecessary Packages
+### 7-2. <a name="remove_unnecessary_packages"></a>Removing Unnecessary Packages
 
-#### Uninstalling "Three.js"
+#### (a) Uninstalling "Three.js"
 
 If you are not using Three.js, you can install if from your `Dependencies`:
 
@@ -177,7 +353,7 @@ imports-loader
 ```
 
 
-#### Uninstalling Other Packages
+#### (b) Uninstalling Other Packages
 
 If you want to further minimize the project structure, there are some other packages you may want to consider removing:
 

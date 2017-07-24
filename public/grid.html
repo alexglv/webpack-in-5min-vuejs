@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+<meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' http://* blob: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://maps.googleapis.com http://gc.kis.v2.scr.kaspersky-labs.com  https://44r53g0k0g.execute-api.ap-northeast-1.amazonaws.com https://en.wikipedia.org 'unsafe-inline' 'unsafe-eval'" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<link rel="stylesheet" href="dist/assets/grid.css">
+<title>Grids</title>
+<style>
+#container {
+	width: 100%;
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+	<div id="app">
+		<router-view :translate="translate"
+					 :set_locale="set_locale"
+					 :is_prepare_ready="is_prepare_ready">
+		</router-view>
+	</div>
+</div>
+
+<script src="dist/js/vendor.js"></script>
+<script src="dist/js/grid.js"></script>
+
+</body>
+</html>
