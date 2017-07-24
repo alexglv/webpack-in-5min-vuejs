@@ -28,7 +28,7 @@ Doing so, ***I usually look up my previous projects
 so that I can copy + paste what I need.***
 
 This project is a *"reference"*.  
-I meant it to be that way, and I want you to use it that way.
+I meant it to be that way, and I want you to use it that way.  
 *As it helps me out all the time, I hope it does to you as well!*
 
 
