@@ -16,7 +16,7 @@ import config_0 from 'config';
 import config_1 from './config';
 import utils from '../../lib/utils';
 import store from './store';
-import i18n from './i18n';
+import i18n_manager from '../../lib/i18n_manager';
 import route_to_webgl from './routes/webgl';
 import route_to_wiki from './routes/wiki';
 import './style.styl';
@@ -85,6 +85,15 @@ const router = new VueRouter({
 //   next();
 // });
 
+const i18n = i18n_manager.create({
+	locale: 'en',
+	fallbackLocale: 'en',
+	messages: {
+		en: merge({}, require('../../i18n/en'), require('./i18n/en')),
+		ja: merge({}, require('../../i18n/ja'), require('./i18n/ja'))
+	}
+});
+
 const App = new Vue({
 	store,
 	router,
@@ -136,6 +145,8 @@ function create() {
 	// and it limits the calls.
 	window.addEventListener('resize', utils.debounce(this.resize, 400), false);
 
+	// mosaikekkan
+	console.log('[entries.sample.index]   i18n.locale: ' + i18n.locale);
 	this.set_locale(i18n.locale || 'en');
 	this.resize();
 	this.is_prepare_ready = true;

@@ -7,8 +7,12 @@ import template from './topmenu.html';
 export default Vue.component(
 	'topmenu',
 	{
-		template,
-		props: ['page']
+		props: {
+			translate:		{ required: true, type: Function },
+			set_locale:		{ required: true, type: Function },
+			page:			{ required: false, type: String }
+		},
+		template
 	}
 );
 

@@ -93,7 +93,7 @@ export default {
 		},
 		// '$route': 'fetch_all',
 		locale: function () {
-			this.set_reservations();
+			console.log('[entries.sample.routes.webgl]   locale has changed');
 		}
 	},
 	methods: {
