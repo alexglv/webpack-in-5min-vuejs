@@ -2,9 +2,9 @@
  * src/i18n/en.js
  */
 module.exports = {
-	expression: 'awesome',
+	expression: 'gorgeous',
 	message: {
-		welcome: 'Welcome. You look @:expression!'
+		welcome: 'Hi. You look @:expression!'
 	}
 };
 

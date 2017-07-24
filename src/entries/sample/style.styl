@@ -57,30 +57,19 @@ h3
 	height: 60px
 	animation: rotating 1.7s linear infinite
 
-#translate-buttons
-	width: 100%
-	margin: 5px 0px
+.translate
+	cursor: pointer
 	set-flex()
 	set-flex-order-row()
-	set-flex-justify-end()
+	set-flex-justify-center()
 	set-flex-align-center()
-	button:nth-child(2)
-		margin-left: 5px
-		margin-right: 5px
-	@media screen and (max-width: 420px), screen and (max-device-width: 420px)
-		margin-top: 8px
-		button:nth-child(1)
-			margin-left: 8px
-		button:nth-child(2)
-			margin-left: 4px
-			margin-right: 8px
-
-.btn-translate
-	cursor: pointer
 	border: none
-	text-decoration: underline
+	min-width: 90px
+	margin-left: 0.2em
+	padding: 2px 4px
 	font-size: 0.9em
-	color: #e2e2e2
+	text-decoration: none
+	background-color: #e0e0e0
 	@media screen and (max-width: 420px), screen and (max-device-width: 420px)
 		width: 50%
 		min-width: 0

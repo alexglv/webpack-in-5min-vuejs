@@ -1,5 +1,5 @@
 <div id="webgl-container">
-	<topmenu page="webgl">
+	<topmenu page="webgl" :translate="translate" :set_locale="set_locale" :locale="locale">
 		<span slot="page-navi">
 			| <a href="/">Top</a>
 			| WebGL Grid
@@ -7,6 +7,10 @@
 		</span>
 		<span slot="page-title">WebGL Grid</span>
 	</topmenu>
+	<div id="message">
+		<div>{{ translate('message.welcome') }}</div>
+		<div>{{ translate('webgl.description') }}</div>
+	</div>
 	<div id="webgl">
 		<canvas id="cube"></canvas>
 	</div>

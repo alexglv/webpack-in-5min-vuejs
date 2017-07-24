@@ -57,11 +57,13 @@ export default {
 };
 
 function create(params = {}) {
-	let {
+
+	const {
 		locale = DEFAULT_LOCALE,
 		fallbackLocale = DEFAULT_LOCALE_FALLBACK,
 		messages = { en: {}, ja: {} }
 	} = params;
+
 	return new VueI18n({
 		locale, fallbackLocale, messages: assign({}, messages)
 	});
