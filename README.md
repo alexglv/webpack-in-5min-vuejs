@@ -18,18 +18,22 @@ A minimalistic setup suitable for basic development using Webpack (with Vue.js +
 
 ## 1. <a name="about"></a>About This Project
 
-If you want ***to launch your new project immediately,
-you should use ["vue-cli"](https://github.com/vuejs/vue-cli).***  
-But, if you want ***to configure your project the way you like it,***
-you are in the right place.
+If you want to ***setup your new project immediately***,
+you should use *["vue-cli"](https://github.com/vuejs/vue-cli)*.  
+*["vue-cli"](https://github.com/vuejs/vue-cli) is an awesome tool
+and it lets you to create a project right away!*  
+If you want to ***customize your project the way you like***,  
+*this project provides you a plenty of examples, and you'll like it!*
 
-When I craete a new project, I do it from a scratch.  
-Doing so, ***I usually look up my previous projects  
-so that I can copy + paste what I need.***
+For any new projects, I do it from scratch.  
+Then, ***I look up my previous projects to copy + paste  
+whatever needed for the new project.***
 
 This project is a *"reference"*.  
-I meant it to be that way, and I want you to use it that way.  
-*As it helps me out all the time, I hope it does to you as well!*
+Please feel free to copy + paste whichever you find it useful.  
+*As it always saves my time customizing my own projects,  
+I hope it does to you the same!*
+
 
 
 ## 2. <a name="features"></a>Features
