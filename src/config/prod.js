@@ -1,9 +1,15 @@
 /**
- * config/production.js
+ * config/prod.js
  */
+import merge from 'lodash.merge';
 
-export default {
-	API_KEY: 'https://www.google.com',
-	API_URL: '9999-9999-9999-9999'
-};
+module.exports = merge({}, require('./common.js'), {
+	api: {
+		url: 'https://www.google.com',
+		key: '9999-9999-9999-9999',
+		headers: {
+			'X-Harry-Potter-Identity': 'dev'
+		}
+	}
+});
 

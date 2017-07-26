@@ -1,8 +1,11 @@
 /**
  * entries/sample/config.js
  */
+import merge from 'lodash.merge';
 
-export default {
-	test: 1
-};
+module.exports = merge({}, require('config'), {
+	service: {
+		page: 'sample'
+	}
+});
 

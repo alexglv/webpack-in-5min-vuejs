@@ -1,9 +1,15 @@
 /**
- * config/development.js
+ * config/dev.js
  */
+import merge from 'lodash.merge';
 
-export default {
-	API_KEY: 'http://localhost:8080',
-	API_URL: '1111-1111-1111-1111'
-};
+module.exports = merge({}, require('./common.js'), {
+	api: {
+		url: 'http://localhost:8080',
+		key: '1111-1111-1111-1111',
+		headers: {
+			'X-Harry-Potter-Identity': 'dev'
+		}
+	}
+});
 

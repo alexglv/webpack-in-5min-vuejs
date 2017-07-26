@@ -5,11 +5,12 @@ import merge from 'lodash.merge';
 import Vue from 'vue';
 import {mapState} from 'vuex';
 
-import config_0 from 'config';
-import config_1 from '../config';
+import config from '../config';
 import utils from '../../../lib/utils';
 import template from './webgl.html';
 import topmenu from './components/topmenu.js';
+
+console.log('[entries.sample.routes.webgl]   config:', config);
 
 import * as THREE from 'three';
 THREE.OrbitControls = require(
@@ -28,8 +29,6 @@ window.request_animation_frame = (function(){
 const assign		= merge;
 const path			= utils.path;
 const Maybe			= utils.Maybe;
-
-const config = assign({}, config_0, config_1);
 
 
 const canvas_w_max = 1024;

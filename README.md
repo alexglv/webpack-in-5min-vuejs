@@ -88,6 +88,10 @@ npm install
 
 ## 4. <a name="updates"></a>Updates
 
+**Ver. 1.2.2 --> 1.2.3**
+
+- Changed the way to load config.
+
 **Ver. 1.2.1 --> 1.2.2**
 
 - Fix for i18n

@@ -5,8 +5,7 @@ import merge from 'lodash.merge';
 import Vue from 'vue';
 import {mapState} from 'vuex';
 
-import config_0 from 'config';
-import config_1 from '../config';
+import config from '../config';
 import utils from '../../../lib/utils';
 import template from './wiki.html';
 import topmenu from './components/topmenu.js';
@@ -14,8 +13,6 @@ import topmenu from './components/topmenu.js';
 const assign		= merge;
 const path			= utils.path;
 const Maybe			= utils.Maybe;
-
-const config = assign({}, config_0, config_1);
 
 export default {
 	data: () => {

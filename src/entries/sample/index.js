@@ -12,8 +12,7 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueResource);
 
-import config_0 from 'config';
-import config_1 from './config';
+import config from './config';
 import utils from '../../lib/utils';
 import store from './store';
 import i18n_manager from '../../lib/i18n_manager';
@@ -31,8 +30,6 @@ const path            = utils.path;
 const Maybe           = utils.Maybe;
 const get_children    = utils.maybe_get_children;
 const obj_keys_size   = utils.obj_keys_size;
-
-const config = assign({}, config_0, config_1);
 
 // Consider making "router" into an external module
 // if you are not referencing local methods or variables.
