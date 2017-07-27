@@ -18,35 +18,48 @@ A minimalistic setup suitable for basic development using Webpack (with Vue.js +
 
 ## 1. <a name="about"></a>About This Project
 
-If you want to ***setup your new project immediately***,
-you should use *["vue-cli"](https://github.com/vuejs/vue-cli)*.  
-*["vue-cli"](https://github.com/vuejs/vue-cli) is an awesome tool
-and it lets you to create a project right away!*  
-If you want to ***customize your project the way you like***,  
-*this project provides you a plenty of examples, and you'll like it!*
+*If you need to **setup your new project immediately**,
+you should use ["vue-cli"](https://github.com/vuejs/vue-cli).  
+It is an awesome tool to let you to create your new projects right away!  
+But if you want to **customize your project** the way you like,  
+you are looking at the right project!*
 
-For any new projects, I do it from scratch.  
-Then, ***I look up my previous projects to copy + paste  
-whatever needed for the new project.***
+When I start a new project, I do it from "scratch".  
+Then, **I usually look up my previous projects to copy and paste  
+whatever needed for my new project.**  
+And, this project serves me the purpose.  
+For it has a plenty of codes to satisfy my needs.
 
-This project is a *"reference"*.  
-Please feel free to copy + paste whichever you find it useful.  
-*As it always saves my time customizing my own projects,  
-I hope it does to you the same!*
-
-
+This project is a *"reference"* for my projects.  
+**As it always saves my time, I hope it does to you the same.**  
+Please feel free to copy and paste whichever you find it useful!
 
 ## 2. <a name="features"></a>Features
 
-Because I tend to work with projects that usually have
-already existing server-side framework such as *Laravel* or *Express*,
-instread of using *HTML Webpack Plugin* to dynamically generate HTML files,
-I embedded *Vue* app within a static HTML file (namely, `public/sample.html`).  
-Also, the embedded app uses *vue-router" to serve more routed pages.
-Most of the states are managed by *"Vuex"*
-(including the one for localizations, which uses *"vue-i18n"*)  
-As for the codes, they'are partially functional, but not the whole
-(because it sometimes makes others hard to read).
+In the previous version, I used *"HTML Webpack Plugin"*
+to dynamically generate HTML files.  
+However, I found it more common to many of my projects that I start out  
+with some kind of server-side rendered framework
+(such as *"Laravel"* or *"Express"*) that are already existing.  
+So, I decided instead to make this project having *Vue* app embedded
+within static HTML files.  
+(specifically, `public/sample.html` in the project)
+
+Another feature that commonly used in many of my projects
+is the routing functionality.  
+For which *"vue-router"* is amazing to serve the purpose,
+and I have in this project  
+an example of `public/sample.html` having 2 routed pages.
+
+Also, you will find good examples using *"Vuex"* to manage states.  
+Especially, for *"vue-i18n"* being used in the project for internationalization,  
+I am using *"Vuex"* to manage the states.
+
+The first routed page, `#/webgl`, shows you an example of WebGL using *"Three.js"*.  
+The second one, `#/wiki`, gives you an example of using *Wiki Search API*  
+to show you how you can easily implement a reactive SPA app using *Vue*.
+
+List of features:
 
 - *ES6 with Babel*
 - *Webpack 3.1.0*
