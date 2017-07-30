@@ -17,7 +17,54 @@ import router from './router';
 import i18n from './i18n';
 import './style.styl';
 
-const App = new Vue({
+
+/**
+ * Child components will use this.
+ * So need to pass this function as one of the props
+ * whenever the child components want to use it.
+ * @protected
+ */
+const translate = function(key, locale, values) {
+	return this.$i18n.t(key, locale, values);
+};
+
+
+/**
+ * Calling this method does NOT really change the locale for "vue-i18n".
+ * It is only possible by watching "this.locale" (which is the project
+ * managed i18n locale), and by explicitly telling "vue-i18n"
+ * when detecting the "this.locale" changes.
+ * This is also used by child components, and need to
+ * pass it for child components to use it.
+ * @protected
+ */
+const set_locale = function(locale = '') {
+	this.$store.dispatch('set_locale', locale);
+};
+
+
+/**
+ * @protected
+ */
+const resize = function() {
+	// mosaikekkan
+	console.log('[entries.sample.index] +++++++ resize()');
+	this.$store.dispatch('set_screen_size');
+};
+
+
+/**
+ * When the project managed i18n locale changes,
+ * then it tells "vue-i18" to change the actual locale.
+ * (read the comments in "watch" section bellow)
+ * @private
+ */
+const on_locale_change = function() {
+	this.$i18n.locale = this.locale;
+};
+
+
+new Vue({
 	store,   // referred as: "this.$store"
 	router,  // referred as: "this.$router"
 	i18n,    // referred as: "this.$i18n"
@@ -75,44 +122,9 @@ const App = new Vue({
 		// We can only do so by watching "this.locale" (which is managed
 		// by project's i18n store), and explicitly tell "vue-i18n"
 		// when detecting "this.locale" changed.
-		locale: function() {
-			this.$i18n.locale = this.locale;
-		}
+		locale: on_locale_change
 	}
+
 }).$mount('#app');
-
-
-/**
- * Child components will use this.
- * So need to pass this function as one of the props
- * whenever the child components want to use it.
- * @protected
- */
-function translate(key, locale, values) {
-	return this.$i18n.t(key, locale, values);
-}
-
-
-/**
- * Calling this method does NOT really change the locale for "vue-i18n".
- * It is only possible by watching "this.locale" (which is the project
- * managed i18n locale), and by explicitly telling "vue-i18n"
- * when detecting the "this.locale" changes.
- * This is also used by child components, and need to
- * pass it for child components to use it.
- * @protected
- */
-function set_locale(locale) {
-	this.$store.dispatch('set_locale', locale);
-}
-
-/**
- * @protected
- */
-function resize() {
-	// mosaikekkan
-	console.log('[entries.sample.index] +++++++ resize()');
-	this.$store.dispatch('set_screen_size');
-}
 
 
