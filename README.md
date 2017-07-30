@@ -18,6 +18,8 @@ A minimalistic setup suitable for basic development using Webpack (with Vue.js +
 
 ## 1. <a name="about"></a>About This Project
 
+**[Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)**
+
 *If you need to **setup your new project immediately**,
 you should use ["vue-cli"](https://github.com/vuejs/vue-cli).  
 It is an awesome tool to let you to create your new projects right away!  
