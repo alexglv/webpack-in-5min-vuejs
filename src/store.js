@@ -1,7 +1,7 @@
 /**
- * shared_store.js
+ * store.js
+ * Shared store for all the entries.
  */
-import utils from './lib/utils';
 
 export default {
 	state: {

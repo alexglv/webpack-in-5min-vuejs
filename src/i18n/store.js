@@ -1,5 +1,6 @@
 /**
- * lib/i18n_manager/i18n_store.js
+ * i18n/store.js
+ * All the entries use the same i18n store.
  */
 import Vue from 'vue';
 

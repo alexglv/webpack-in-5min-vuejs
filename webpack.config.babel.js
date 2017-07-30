@@ -15,35 +15,47 @@ const is_dev = (_env => (
 console.log('> ENV: ' + (is_dev ? 'development' : 'production'));
 console.log('>');
 
-const dir = __dirname.split(path.sep).pop();
-const exclude = new RegExp(
-	'(?:node_modules|bower_components|' + dir + path.sep + 'public' + ')'
-);
-const extract_plugin = new ExtractTextPlugin({
-	filename: 'dist/assets/[name].css',
-	allChunks: true
-});
+const sep = path.sep;
+const dir = __dirname.split(sep).pop(); // Ex. "webpack-in-5min-vuejs"
+
+// For module loader rules. Specifically for asset loader options.
 const asset_name = 'dist/assets/[name].[hash].[ext]';
 
+// For module loader rules. Specifically for asset loader options.
+const include = [ path.join(__dirname, 'src') ];
+
+// For module loader rules. Specifically for asset loader options.
+// Exclude "public" to imply "public/dist" where you have built files.
+const exclude = new RegExp(
+	'(?:node_modules|bower_components|' + dir + sep + 'public' + ')'
+);
+
+// Not really necessary, but making it an instace
+// because "ExtractTextPlugin" use used twice.
+// (for "stylus-loader" and "CommonsChunkPlugin")
+const extract_plugin = new ExtractTextPlugin({
+	filename: 'dist/assets/[name].css', allChunks: true
+});
+
 export default {
+	// "context" is essential when resolving paths
+	// for your program codes and assets.
 	context: path.join(__dirname, 'src'),
 	// This project has only 2 entries, namely, "sample" and "vendor".
 	entry: {
-		// We want "sample.js" as the outcomme for "public/sample/index.html" to use.
+		// "public/sample/sample.html" needs "dist/js/sample.js".
 		sample: path.resolve(__dirname + '/src/entries/sample/index.js'),
-		// We want a separate output for all the vendor provided codes into "vendor.js".
+		// "public/sample/sample.html" needs "dist/js/vendor.js".
 		vendor: [
 			'lodash.merge','seedrandom','whatwg-fetch','three',
 			'vue','vuex','vue-resource','vue-i18n','vue-router'
 		]
 	},
 	output: {
-		// Directory that you want to output your codes and assets to.
+		// Directory to output all the assets.
 		path: path.join(__dirname, 'public'),
-		// Filename that you want to output your code to.
-		// For this project has only 2 entries,
-		// namely, "sample" and "vendor",
-		// the [name] would be either "sample" or "vendor".
+		// Filename to output your JS files.
+		// (where [name] being "sample" or "vendor")
 		filename: 'dist/js/[name].js'
 	},
 	module: {
@@ -51,19 +63,19 @@ export default {
 			{
 				enforce: 'pre',
 				test: /\.js$/,
-				include: [ path.join(__dirname, 'src') ],
+				include,
 				exclude,
 				use: [{ loader: 'eslint-loader' }]
 			},
 			{
 				test: /\.js$/,
-				include: [ path.join(__dirname, 'src') ],
+				include,
 				exclude,
 				use: [{ loader: 'babel-loader?compact=false' }]
 			},
 			{
 				test: /\.styl$/,
-				include: path.join(__dirname, 'src'),
+				include,
 				use: extract_plugin.extract({
 					fallback: 'style-loader',
 					use: [
@@ -159,15 +171,14 @@ export default {
 		is_dev ? {
 			devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
 			devServer: {
-				// This is optional. Only if you have some assets
-				// in the content directory to which you want to refer
-				// from the HTML pages.
+				// Optional. Specifiy "contentBase" when you have
+				// assets placed in your document directory.
 				contentBase: path.join(__dirname, 'public'),
 				host:		process.env.HOST || '127.0.0.1',
 				port:		process.env.PORT || '8080',
 				historyApiFallback: true,
 				noInfo:		true
-				// >>> "vue-router" does not work with HMR... \(-_-;)
+				// "vue-router" does not work with HMR.... \(-_-;)
 				// -----------------------------------------------------
 				// hot:		true, // hot reload on changes
 				// inline:		true // lively refresh the browser page
@@ -176,6 +187,7 @@ export default {
 		} : {}
 	))(),
 	resolve: {
+		// You can require modules even if you omit the file extentions.
 		extensions: ['.js'],
 		alias: {
 			config: path.resolve(

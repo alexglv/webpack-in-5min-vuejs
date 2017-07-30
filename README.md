@@ -101,6 +101,12 @@ npm install
 
 ## 4. <a name="updates"></a>Updates
 
+**Ver. 1.2.3 --> 1.2.4**
+
+- Some refactoring.
+- Changed the compositions for i18n handling.
+- Added more comments.
+
 **Ver. 1.2.2 --> 1.2.3**
 
 - Changed the way to load config.

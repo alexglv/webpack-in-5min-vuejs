@@ -1,5 +1,6 @@
 /**
  * entries/sample/i18n/ja.js
+ * Japanese translations specific to "sample" entry.
  */
 module.exports = {
 	webgl: {

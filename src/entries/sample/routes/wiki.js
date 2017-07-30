@@ -10,10 +10,6 @@ import utils from '../../../lib/utils';
 import template from './wiki.html';
 import topmenu from './components/topmenu.js';
 
-const assign		= merge;
-const path			= utils.path;
-const Maybe			= utils.Maybe;
-
 export default {
 	data: () => {
 		return {
@@ -26,7 +22,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			screen: state => state.shared.screen,
+			screen: state => state.share.screen,
 			locale: state => state.i18n.locale,
 			is_searching: state => state.wiki.searching,
 			search_result_list: state => state.wiki.list
@@ -37,27 +33,19 @@ export default {
 		topmenu
 	},
 	beforeRouteEnter (to, from, next) {
-		// Focus on the input form.
-		window.setTimeout(() => {
+		window.setTimeout(() => { // set focus on the imput form
 			document.getElementById('keywords').focus();
 		}, 400);
-		// Need to resolve the transition.
-		next(vm => {});
+		next(vm => {}); // make sure to resolve the route transition
 	},
-	// beforeRouteUpdate (to, from, next) {
-	//   next(vm => {});
-	// },
 	watch: {
-		// Watch for changes on "keywords" input form.
+		// Watch "keywords" changes.
 		keywords: function(text) {
-			// When we have the keyword given, we dispatch an action
-			// defined in "wiki_store.js" to perform a search
-			// using "Wiki API Search".
+			// Any words given, perform Wiki API Search.
+			// (by dispatching the command to "wiki_store.js")
 			this.$store.dispatch('wiki_search', text);
 			this.$store.dispatch('wiki_clear_list');
 		}
-	},
-	methods: {
 	}
 };
 
