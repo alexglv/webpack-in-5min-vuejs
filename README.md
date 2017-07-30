@@ -18,23 +18,23 @@ A minimalistic setup suitable for basic development using Webpack (with Vue.js +
 
 ## 1. <a name="about"></a>About This Project
 
-**[Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)**
-
 *If you need to **setup your new project immediately**,
 you should use ["vue-cli"](https://github.com/vuejs/vue-cli).  
 It is an awesome tool to let you to create your new projects right away!  
 But if you want to **customize your project** the way you like,  
 you are looking at the right project!*
 
-When I start a new project, I do it from "scratch".  
+*When I start a new project, I do it from "scratch".  
 Then, **I usually look up my previous projects to copy and paste  
 whatever needed for my new project.**  
 And, this project serves me the purpose.  
-For it has a plenty of codes to satisfy my needs.
+For it has a plenty of codes to satisfy my needs.*
 
-This project is a *"reference"* for my projects.  
+*This project is just a **"reference"** for my projects.  
 **As it always saves my time, I hope it does to you the same.**  
-Please feel free to copy and paste whichever you find it useful!
+Please feel free to copy and paste whichever you find it useful!*
+
+***[Demo](http://tokyo800.jp/samples/webpack-in-5min-vuejs/)***
 
 ## 2. <a name="features"></a>Features
 
@@ -90,10 +90,6 @@ cd path/to/your/own/workspace
 git clone https://github.com/minagawah/webpack-in-5min-vuejs.git
 ```
 
-Since the project mainly intends to ***provide you with some sample codes and settings,  
-simply running it is not very recommended.*** However, because you need to run it anyways  
-in order to check how it goes, here's how you install npm modules:
-
 Install npm packages.
 
 ```
@@ -132,16 +128,16 @@ npm install
 
 ## 5. <a name="how_to_build"></a>How To Build
 
-### For "development"
+### development
 
 ```
 npm run dev
 ```
 
 Launches `webpack-dev-server` at port `8080`.  
-The app will be built, but ***you won't see them because they are on memory.***
+The app will be built, but you won't see them because they are on memory.
 
-### For "production"
+### production
 
 ```
 npm run prod
@@ -150,6 +146,21 @@ npm run prod
 You will find the built chunks under `public/dist/js` directory.  
 Likewise, asset files are found under `public/dist/assets`.
 
+If you have your server-side apps running, just upload files and directories in `public`.  
+If you want to check it on your local, launch a local web server.  
+I usually use *["http-server"](https://github.com/indexzero/http-server)* because it's the easiest.
+
+```
+npm install -g http-server
+cd webpack-in-5min-vuejs
+http-server
+-------------------------------------
+Starting up http-server, serving ./public
+Available on:
+  http://192.168.100.100:8080
+  http://127.0.0.1:8080
+Hit CTRL-C to stop the server
+```
 
 ## 6. <a name="entry_points_urls"></a>Entry Points & URLs
 
