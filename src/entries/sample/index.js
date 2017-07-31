@@ -4,6 +4,7 @@
  */
 import merge from 'lodash.merge';
 import 'whatwg-fetch';
+import Rx from 'rxjs/Rx';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { mapState } from 'vuex';
@@ -44,7 +45,7 @@ const set_locale = function(locale = '') {
 
 
 /**
- * @protected
+ * @private
  */
 const resize = function() {
 	// mosaikekkan
@@ -91,22 +92,29 @@ new Vue({
 		})
 	},
 	created() {
-		// Why using "utils.debounce"?
-		// Because we do NOT want to call "resize()"
-		// every time the screen size changes.
-		// "utils.debounce" checks if the function specified
-		// is called consequently within the certain period of time,
-		// and limit its calls.
-		window.addEventListener('resize', utils.debounce(this.resize, 400), false);
+
+		// Although we want "resize()" to be called when screen size changes,
+		// we also want to limit the calls otherwise it would slow the performance.
+		// While I have "utils.debounce()" implemented which simply checks
+		// if the given function is called consecutively within
+		// a certain period of time, it is much easier to control it
+		// using RxJS.
+
+		// Using "utils.debounce()":
+		// window.addEventListener('resize', utils.debounce(resize.bind(this), 1000), false);
+
+		// Using "RxJS":
+		Rx.Observable.fromEvent(window, 'resize')
+			.debounceTime(1000)
+			.subscribe(resize.bind(this));
 
 		this.set_locale(i18n.locale || 'en');
-		this.resize();
+		resize.call(this);
 		this.is_prepare_ready = true;
 	},
 	methods: {
 		translate,
-		set_locale,
-		resize
+		set_locale
 	},
 	watch: {
 

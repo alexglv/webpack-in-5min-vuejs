@@ -99,6 +99,10 @@ npm install
 
 ## 4. <a name="updates"></a>Updates
 
+**Ver. 1.2.4 --> 1.2.5**
+
+- Added an example using *"RxJS"*.
+
 **Ver. 1.2.3 --> 1.2.4**
 
 - Some refactoring.
@@ -321,7 +325,7 @@ What it means when you do `npm install`:
 ```
 npm install --save-dev lodash.merge lodash.mergewith yargs babel-core babel-runtime babel-preset-es2015 babel-preset-stage-0 babel-plugin-transform-runtime babel-loader webpack webpack-dev-server url-loader file-loader html-loader style-loader css-loader stylus stylus-loader postcss-loader autoprefixer-stylus exports-loader imports-loader eslint eslint-loader babel-eslint eslint-plugin-html eslint-friendly-formatter extract-text-webpack-plugin@^3.0.0-rc.1 webpack-cleanup-plugin copy-webpack-plugin uglify-save-license
 
-npm install --save lodash.merge lodash.mergewith seedrandom whatwg-fetch three web-animations-js vue vue-router vuex vue-resource vue-i18n
+npm install --save lodash.merge lodash.mergewith seedrandom whatwg-fetch rxjs three web-animations-js vue vue-router vuex vue-resource vue-i18n
 ```
 
 meaning, you have installed the followings for `devDependencies`:
@@ -367,6 +371,7 @@ lodash.merge
 lodash.mergewith
 seedrandom
 whatwg-fetch
+rxjs
 three
 web-animations-js
 vue
@@ -415,6 +420,7 @@ stylus
 stylus-loader
 lodash.merge
 yargs
+rxjs
 ```
 ##### # seedrandom
 
@@ -458,4 +464,11 @@ When you run `npm` command, webpack determines the environment from the specifie
 `--env.dev` or `--env.prod`. When `webpack.config.babel.js` is read, some platforms do not properly understand  
 the custom options, and when that happens, it needs alternative ways to handle the given values.  
 If you have other ways to determine the running environment, you can remove it.
+
+##### # rxjs
+
+There are ways to throttle events when you don't want RxJS to handle it.  
+"utils.debounce()" as I have implemented for instance.  
+(which I commented out the use of it in the source codes)
+
 

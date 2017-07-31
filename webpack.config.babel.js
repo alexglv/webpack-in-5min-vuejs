@@ -47,7 +47,7 @@ export default {
 		sample: path.resolve(__dirname + '/src/entries/sample/index.js'),
 		// "public/sample/sample.html" needs "dist/js/vendor.js".
 		vendor: [
-			'lodash.merge','seedrandom','whatwg-fetch','three',
+			'lodash.merge','seedrandom','whatwg-fetch','rxjs','three',
 			'vue','vuex','vue-resource','vue-i18n','vue-router'
 		]
 	},
