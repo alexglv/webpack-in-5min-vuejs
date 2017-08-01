@@ -49,17 +49,19 @@ let cube_size			= 0;
 
 
 const set_canvas_size = () => {
-	let { innerWidth: width, innerHeight: height } = window;
-	let chk		= width * canvas_w_scale;
+	let { innerWidth = 0, devicePixelRatio = 1 } = window;
+	dpr = devicePixelRatio;
+	let chk		= innerWidth * canvas_w_scale;
 	canvas_w	= (canvas_w_max > chk) ? chk : canvas_w_max;
 	canvas_h	= canvas_w / 2.1; // divided by "1.78" if you prefer "16:9"
 	canvas_w	= parseInt(canvas_w);
 	canvas_h	= parseInt(canvas_h);
 	aspect		= canvas_w / canvas_h;
-	width = height = void 0;
+	innerWidth = devicePixelRatio = void 0;
 	return Promise.resolve();
 };
 
+// No arrow function syntax for it will be bound to a specific scope.
 const wait_for_ready = function() {
 	return utils.wait_for(
 		() => (this.is_ready ? true : false),
@@ -131,12 +133,12 @@ const set_cube = () => {
 const set_walls = () => {
 	let wall_size = cube_size * 3.5;
 	let half_wall_size = wall_size / 2;
-	let walls = [
+	let walls = [];
+	[
 		{ x: 0, y: 0, z: 0 },
 		{ x: 0, y: half_wall_size, z: -half_wall_size },
 		{ x: -half_wall_size, y: half_wall_size, z: 0 },
-	];
-	walls.forEach((pos, i) => {
+	].forEach((pos, i) => {
 		walls[i] = new THREE.GridHelper(wall_size, 10);
 		walls[i].position.set(pos.x, pos.y, pos.z);
 		walls[i].material.transparent = true;
@@ -149,6 +151,7 @@ const set_walls = () => {
 
 
 /**
+ * No arrow function syntax for it will be bound to a specific scope.
  * @protected
  */
 const on_create = function() {
@@ -156,7 +159,6 @@ const on_create = function() {
 	console.log('[entries.sample.routes.webgl] +++++++ on_create()');
 	set_canvas_size()
 		.then(wait_for_ready.bind(this))
-		.then((() => (dpr = this.screen.dpr)).bind(this))
 		.then(pipe([
 			set_canvas,
 			set_camera,
@@ -171,6 +173,7 @@ const on_create = function() {
 };
 
 /**
+ * No arrow function syntax for it will be bound to a specific scope.
  * @protected
  */
 const on_screen_change = function() {
@@ -189,6 +192,7 @@ const on_screen_change = function() {
 };
 
 /**
+ * No arrow function syntax for it will be bound to a specific scope.
  * @protected
  */
 const on_locale_change = function() {

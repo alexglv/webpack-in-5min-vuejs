@@ -23,6 +23,7 @@ import './style.styl';
  * Child components will use this.
  * So need to pass this function as one of the props
  * whenever the child components want to use it.
+ * No arrow function syntax for it will be bound to a specific scope.
  * @protected
  */
 const translate = function(key, locale, values) {
@@ -37,6 +38,7 @@ const translate = function(key, locale, values) {
  * when detecting the "this.locale" changes.
  * This is also used by child components, and need to
  * pass it for child components to use it.
+ * No arrow function syntax for it will be bound to a specific scope.
  * @protected
  */
 const set_locale = function(locale = '') {
@@ -45,6 +47,7 @@ const set_locale = function(locale = '') {
 
 
 /**
+ * No arrow function syntax for it will be bound to a specific scope.
  * @private
  */
 const resize = function() {
@@ -58,6 +61,7 @@ const resize = function() {
  * When the project managed i18n locale changes,
  * then it tells "vue-i18" to change the actual locale.
  * (read the comments in "watch" section bellow)
+ * No arrow function syntax for it will be bound to a specific scope.
  * @private
  */
 const on_locale_change = function() {
@@ -109,7 +113,9 @@ new Vue({
 			.subscribe(resize.bind(this));
 
 		this.set_locale(i18n.locale || 'en');
+
 		resize.call(this);
+
 		this.is_prepare_ready = true;
 	},
 	methods: {
