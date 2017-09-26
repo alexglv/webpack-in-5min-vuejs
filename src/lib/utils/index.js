@@ -2,7 +2,8 @@
  * lib/utils/index.js
  */
 import core from './core';
-import Maybe from './maybe';
+import Maybe from './monads/maybe';
+import Reader from './monads/reader';
 
 const curry   = core.curry;
 const prop    = core.prop;
@@ -45,6 +46,7 @@ const get_element_commulative_offset = el => {
 export default {
     ...core,
     Maybe,
+    Reader,
     maybe_get_children,
     extract_i18n,
     mysql_year,
