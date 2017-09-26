@@ -12,19 +12,19 @@ import wiki from './routes/wiki_store.js';
 import share from '../../store';
 
 export default new Vuex.Store({
-	strict: true,
-	state: {
-	},
-	getters: {
-	},
-	mutations: {
-	},
-	actions: {
-	},
-	modules: {
-		i18n,
-		wiki,
-		share
-	}
+    strict: true,
+    state: {
+    },
+    getters: {
+    },
+    mutations: {
+    },
+    actions: {
+    },
+    modules: {
+        i18n,
+        wiki,
+        share
+    }
 });
 

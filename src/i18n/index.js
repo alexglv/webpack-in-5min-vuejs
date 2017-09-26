@@ -8,13 +8,13 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 exports.create = (params = {}) => (
-	new VueI18n(merge({
-		locale: 'en',
-		fallbackLocale: 'en',
-		messages: {
-			en: require('./en'),
-			ja: require('./ja')
-		}
-	}, params))
+    new VueI18n(merge({
+        locale: 'en',
+        fallbackLocale: 'en',
+        messages: {
+            en: require('./en'),
+            ja: require('./ja')
+        }
+    }, params))
 );
 

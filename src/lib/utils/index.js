@@ -9,22 +9,22 @@ const prop    = core.prop;
 const path    = core.path;
 
 const maybe_get_children = (src, o) => Maybe.of(src).map(
-	typeof o == 'string' ? prop(o) : path(o)
+    typeof o == 'string' ? prop(o) : path(o)
 );
 
 const extract_i18n = curry((locale, fallback, o) => (
-	Maybe.of(o)
-		.map(prop(locale))
-		.orElse(Maybe.of(o).chain(prop(fallback)))
-		.orElse('')
-		.join()
+    Maybe.of(o)
+        .map(prop(locale))
+        .orElse(Maybe.of(o).chain(prop(fallback)))
+        .orElse('')
+        .join()
 ));
 
 /**
  * @public
  */
 const mysql_year = (d = null) => (
-	core.mysql_date(d).slice(0, 4).split('-').join('')
+    core.mysql_date(d).slice(0, 4).split('-').join('')
 );
 
 /**
@@ -32,22 +32,22 @@ const mysql_year = (d = null) => (
  * @public
  */
 const get_element_commulative_offset = el => {
-	let top   = 0;
-	let left  = 0;
-	while (el) {
-		top   += el.offsetTop  || 0;
-		left  += el.offsetLeft || 0;
-		el    = el.offsetParent;
-	}
-	return { top, left };
+    let top   = 0;
+    let left  = 0;
+    while (el) {
+        top   += el.offsetTop  || 0;
+        left  += el.offsetLeft || 0;
+        el    = el.offsetParent;
+    }
+    return { top, left };
 };
 
 export default {
-	...core,
-	Maybe,
-	maybe_get_children,
-	extract_i18n,
-	mysql_year,
-	get_element_commulative_offset
+    ...core,
+    Maybe,
+    maybe_get_children,
+    extract_i18n,
+    mysql_year,
+    get_element_commulative_offset
 };
 

@@ -7,11 +7,11 @@
 import i18n from '../../../i18n';
 
 module.exports = i18n.create({
-	locale: 'en',
-	fallbackLocale: 'en',
-	messages: {
-		en: require('./en'),
-		ja: require('./ja')
-	}
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: {
+        en: require('./en'),
+        ja: require('./ja')
+    }
 });
 

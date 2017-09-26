@@ -6,8 +6,8 @@
 import merge from 'lodash.merge';
 
 module.exports = merge({}, require('config'), {
-	service: {
-		page: 'sample'
-	}
+    service: {
+        page: 'sample'
+    }
 });
 

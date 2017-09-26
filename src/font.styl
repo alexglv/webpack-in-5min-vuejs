@@ -12,7 +12,7 @@
 */
 
 px-to-em(px)
-	px / 16
+    px / 16
 
 min-font-px = 10
 med-font = 16
@@ -35,8 +35,8 @@ min-viewport-em-str = "%s%s" % (min-viewport-em em)
 max-viewport-em-str = "%s%s" % (max-viewport-em em)
 
 auto-line-height()
-	line-height: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-line-height-em-str max-line-height-em min-line-height-em min-viewport-em-str max-viewport-em min-viewport-em)
+    line-height: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-line-height-em-str max-line-height-em min-line-height-em min-viewport-em-str max-viewport-em min-viewport-em)
 
 auto-font-size()
-	font-size: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-font-px-str max-font-px min-font-px min-viewport-px-str max-viewport-px min-viewport-px)
+    font-size: "calc(%s + (%s - %s) * ((100vw - %s) / (%s - %s)))" % (min-font-px-str max-font-px min-font-px min-viewport-px-str max-viewport-px min-viewport-px)
 

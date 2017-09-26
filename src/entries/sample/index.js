@@ -27,7 +27,7 @@ import './style.styl';
  * @protected
  */
 const translate = function(key, locale, values) {
-	return this.$i18n.t(key, locale, values);
+    return this.$i18n.t(key, locale, values);
 };
 
 
@@ -42,7 +42,7 @@ const translate = function(key, locale, values) {
  * @protected
  */
 const set_locale = function(locale = '') {
-	this.$store.dispatch('set_locale', locale);
+    this.$store.dispatch('set_locale', locale);
 };
 
 
@@ -51,9 +51,9 @@ const set_locale = function(locale = '') {
  * @private
  */
 const resize = function() {
-	// mosaikekkan
-	console.log('[entries.sample.index] +++++++ resize()');
-	this.$store.dispatch('set_screen_size');
+    // mosaikekkan
+    console.log('[entries.sample.index] +++++++ resize()');
+    this.$store.dispatch('set_screen_size');
 };
 
 
@@ -65,79 +65,79 @@ const resize = function() {
  * @private
  */
 const on_locale_change = function() {
-	this.$i18n.locale = this.locale;
+    this.$i18n.locale = this.locale;
 };
 
 
 new Vue({
-	store,   // referred as: "this.$store"
-	router,  // referred as: "this.$router"
-	i18n,    // referred as: "this.$i18n"
-	data: () => {
-		return {
-			is_prepare_ready: false
-		};
-	},
-	computed: {
-		// Mapping all the store managed states.
-		...mapState({
-			// Although "locale" looks like the one managing
-			// i18n states of the app, it is "vue-i18n"
-			// actually doing the job...
-			// This store managed "locale" is more like a proxy
-			// used throughout the app to detect if the locale has changed.
-			// When this sotre managed "locale" changes,
-			// we detect the change by watching it changes,
-			// and need to explicitly tell "vue-i18n" the locale has changed.
-			// (look at the "watch" section bellow where we watch "locale")
-			// "vue-i18n" needs to someday implement features
-			// to asynchronously manage the locale state....
-			locale: state => state.i18n.locale
-		})
-	},
-	created() {
+    store,   // referred as: "this.$store"
+    router,  // referred as: "this.$router"
+    i18n,    // referred as: "this.$i18n"
+    data: () => {
+        return {
+            is_prepare_ready: false
+        };
+    },
+    computed: {
+        // Mapping all the store managed states.
+        ...mapState({
+            // Although "locale" looks like the one managing
+            // i18n states of the app, it is "vue-i18n"
+            // actually doing the job...
+            // This store managed "locale" is more like a proxy
+            // used throughout the app to detect if the locale has changed.
+            // When this sotre managed "locale" changes,
+            // we detect the change by watching it changes,
+            // and need to explicitly tell "vue-i18n" the locale has changed.
+            // (look at the "watch" section bellow where we watch "locale")
+            // "vue-i18n" needs to someday implement features
+            // to asynchronously manage the locale state....
+            locale: state => state.i18n.locale
+        })
+    },
+    created() {
 
-		// Although we want "resize()" to be called when screen size changes,
-		// we also want to limit the calls otherwise it would slow the performance.
-		// While I have "utils.debounce()" implemented which simply checks
-		// if the given function is called consecutively within
-		// a certain period of time, it is much easier to control it
-		// using RxJS.
+        // Although we want "resize()" to be called when screen size changes,
+        // we also want to limit the calls otherwise it would slow the performance.
+        // While I have "utils.debounce()" implemented which simply checks
+        // if the given function is called consecutively within
+        // a certain period of time, it is much easier to control it
+        // using RxJS.
 
-		// Using "utils.debounce()":
-		// window.addEventListener('resize', utils.debounce(resize.bind(this), 1000), false);
+        // Using "utils.debounce()":
+        // window.addEventListener('resize', utils.debounce(resize.bind(this), 1000), false);
 
-		// Using "RxJS":
-		Rx.Observable.fromEvent(window, 'resize')
-			.debounceTime(1000)
-			.subscribe(resize.bind(this));
+        // Using "RxJS":
+        Rx.Observable.fromEvent(window, 'resize')
+            .debounceTime(1000)
+            .subscribe(resize.bind(this));
 
-		this.set_locale(i18n.locale || 'en');
+        this.set_locale(i18n.locale || 'en');
 
-		resize.call(this);
+        resize.call(this);
 
-		this.is_prepare_ready = true;
-	},
-	methods: {
-		translate,
-		set_locale
-	},
-	watch: {
+        this.is_prepare_ready = true;
+    },
+    methods: {
+        translate,
+        set_locale
+    },
+    watch: {
 
-		// You can observe how the route changes (if you wish)
-		//-----------------------------------------------------------------
-		// '$route' (to, from) {
-		//  console.log('[webgl]   Switched from "' + from.path + '" to "' + to.path + '".');
-		// },
-		//-----------------------------------------------------------------
+        // You can observe how the route changes (if you wish)
+        //-----------------------------------------------------------------
+        // '$route' (to, from) {
+        //  console.log('[webgl]   Switched from "' + from.path + '" to "' + to.path + '".');
+        // },
+        //-----------------------------------------------------------------
 
-		// This is extremely important and is absolutely necessary!!!!
-		// By calling "set_locale()", it does NOT change the locale for "vue-i18n".
-		// We can only do so by watching "this.locale" (which is managed
-		// by project's i18n store), and explicitly tell "vue-i18n"
-		// when detecting "this.locale" changed.
-		locale: on_locale_change
-	}
+        // This is extremely important and is absolutely necessary!!!!
+        // By calling "set_locale()", it does NOT change the locale for "vue-i18n".
+        // We can only do so by watching "this.locale" (which is managed
+        // by project's i18n store), and explicitly tell "vue-i18n"
+        // when detecting "this.locale" changed.
+        locale: on_locale_change
+    }
 
 }).$mount('#app');
 

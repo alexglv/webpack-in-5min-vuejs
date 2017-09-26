@@ -1,16 +1,16 @@
 {
-	"root": true,
-	"parser": "babel-eslint",
-	"env": {
-		"browser": true,
-		"es6": true,
-		"node": true,
-		"commonjs": true
-	},
-	"rules": {
-		"prefer-es6-class": [0]
-	},
-	"plugins": [
-		"html"
-	]
+    "root": true,
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "commonjs": true
+    },
+    "rules": {
+        "prefer-es6-class": [0]
+    },
+    "plugins": [
+        "html"
+    ]
 }

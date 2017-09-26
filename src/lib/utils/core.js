@@ -13,11 +13,11 @@ const slice = Array.prototype.slice;
  * @protected
  */
 const curry = (fn, arr = []) => (
-	(...args) => (
-		a => (a.length === fn.length)
-			? fn(...a)
-			: curry(fn, a)
-	)([...arr, ...args])
+    (...args) => (
+        a => (a.length === fn.length)
+            ? fn(...a)
+            : curry(fn, a)
+    )([...arr, ...args])
 );
 
 /**
@@ -51,10 +51,10 @@ const pipe = fns => data => fns.reduce((prev, fn) => fn(prev), data);
  * @protected
  */
 const prop = key => {
-	if (typeof key != 'string') throw new Error('Not an string');
-	return (o = {}) => (
-		(typeof o == 'object' && (key in o)) ? o[key] : null
-	);
+    if (typeof key != 'string') throw new Error('Not an string');
+    return (o = {}) => (
+        (typeof o == 'object' && (key in o)) ? o[key] : null
+    );
 };
 
 /**
@@ -62,16 +62,16 @@ const prop = key => {
  * @protected
  */
 const path = curry((paths, o) => {
-	let tmp = o;
-	let i = 0;
-	while (i < paths.length) {
-		if (tmp == null) {
-			return;
-		}
-		tmp = tmp[paths[i]];
-		i += 1;
-	}
-	return tmp;
+    let tmp = o;
+    let i = 0;
+    while (i < paths.length) {
+        if (tmp == null) {
+            return;
+        }
+        tmp = tmp[paths[i]];
+        i += 1;
+    }
+    return tmp;
 });
 
 /**
@@ -84,59 +84,59 @@ const obj_keys_size = o => (typeof o == 'object' && Object.keys(o).length);
  * @public
  */
 const is_array_like = item => (
-	Array.isArray(item) || (
-		!!item &&
-			typeof item == 'object' &&
-			item.hasOwnProperty('length') &&
-			typeof item.length == 'number' && (
-				item.length == 0 || (
-					item.length > 0 && (item.length - 1) in item
-				)
-			)
-	)
+    Array.isArray(item) || (
+        !!item &&
+            typeof item == 'object' &&
+            item.hasOwnProperty('length') &&
+            typeof item.length == 'number' && (
+                item.length == 0 || (
+                    item.length > 0 && (item.length - 1) in item
+                )
+            )
+    )
 );
 
 /**
  * https://davidwalsh.name/combining-js-arrays
  */
 const merge_w = (obj, obj2) => (
-	mergewith(obj, obj2, (o, o2) => {
-		if (is_array_like(o)) {
-			return o2.reduce((acc, item) => {
-				acc.push(item);
-				return acc;
-			}, o.slice(0));
-		}
-	})
+    mergewith(obj, obj2, (o, o2) => {
+        if (is_array_like(o)) {
+            return o2.reduce((acc, item) => {
+                acc.push(item);
+                return acc;
+            }, o.slice(0));
+        }
+    })
 );
 
 /**
  * @public
  */
 const document_ready = () => (
-	new Promise((resolve, reject) => {
-		let state = document.readyState;
-		if (state == 'interactive' || state == 'complete') {
-			resolve();
-		} else {
-			window.addEventListener('DOMContentLoaded', resolve);
-		}
-	})
+    new Promise((resolve, reject) => {
+        let state = document.readyState;
+        if (state == 'interactive' || state == 'complete') {
+            resolve();
+        } else {
+            window.addEventListener('DOMContentLoaded', resolve);
+        }
+    })
 );
 
 /**
  * @public
  */
 const is_online = () => (
-	(typeof window.navigator != 'undefined' && window.navigator.onLine)
-		? true : false
+    (typeof window.navigator != 'undefined' && window.navigator.onLine)
+        ? true : false
 );
 
 /**
  * @public
  */
 const random = (min = 0, max = 1) => (
-	Math.floor(srand() * (max - min + 1)) + min
+    Math.floor(srand() * (max - min + 1)) + min
 );
 
 /**
@@ -149,17 +149,17 @@ const random = (min = 0, max = 1) => (
  * @public
  */
 const s4 = () => (
-	Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+    Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
 );
 
 /**
  * @public
  */
 const generate_serial_id = slot => {
-	if (typeof slot !== 'number') { slot = 4; }
-	var id = '';
-	for (var i=0; i<slot; i++) { id += s4(); }
-	return id;
+    if (typeof slot !== 'number') { slot = 4; }
+    var id = '';
+    for (var i=0; i<slot; i++) { id += s4(); }
+    return id;
 };
 
 /**
@@ -176,49 +176,49 @@ const pad = (num = 0, size = 2) => {
  * @public
  */
 const mysql_date = (d = null) => (
-	(d && d.getFullYear()
-	 + '-' + pad(d.getMonth() + 1)
-	 + '-' + pad(d.getDate())
-	 + ' ' + pad(d.getHours())
-	 + ':' + pad(d.getMinutes())
-	 + ':' + pad(d.getSeconds())
-	) || null
+    (d && d.getFullYear()
+     + '-' + pad(d.getMonth() + 1)
+     + '-' + pad(d.getDate())
+     + ' ' + pad(d.getHours())
+     + ':' + pad(d.getMinutes())
+     + ':' + pad(d.getSeconds())
+    ) || null
 );
 
 /**
  * @public
  */
 const json_encode = data => (
-	new Promise((resolve, reject) => {
-		if (!data) {
-			reject(new Error('No data is given.'));
-			return;
-		}
-		try {
-			resolve( JSON.stringify(data) );
-		}
-		catch(e) {
-			reject(e);
-		}
-	})
+    new Promise((resolve, reject) => {
+        if (!data) {
+            reject(new Error('No data is given.'));
+            return;
+        }
+        try {
+            resolve( JSON.stringify(data) );
+        }
+        catch(e) {
+            reject(e);
+        }
+    })
 );
 
 /**
  * @public
  */
 const json_decode = data => (
-	new Promise((resolve, reject) => {
-		if (!data) {
-			reject(new Error('No data is given.'));
-			return;
-		}
-		try {
-			resolve( JSON.parse(data) );
-		}
-		catch(e) {
-			reject(e);
-		}
-	})
+    new Promise((resolve, reject) => {
+        if (!data) {
+            reject(new Error('No data is given.'));
+            return;
+        }
+        try {
+            resolve( JSON.parse(data) );
+        }
+        catch(e) {
+            reject(e);
+        }
+    })
 );
 
 /**
@@ -226,73 +226,73 @@ const json_decode = data => (
  * @public
  */
 const wait_for = (fn = null, {name = '', wait = 4000, warn = 0, interval = 100}) => {
-	if (typeof fn != 'function') { throw new Error('no_function_given'); }
-	let elapsed = 0;
-	let max = parseInt(wait / interval);
-	if (max > 900) { max = 900; } // No more than 1.5 min.
-	let mid = warn ? parseInt(warn / interval) : 0; // this is optional
+    if (typeof fn != 'function') { throw new Error('no_function_given'); }
+    let elapsed = 0;
+    let max = parseInt(wait / interval);
+    if (max > 900) { max = 900; } // No more than 1.5 min.
+    let mid = warn ? parseInt(warn / interval) : 0; // this is optional
 
-	return new Promise((resolve, reject) => {
-		let is_warn_already = false;
-		let p = Promise.reject();
-		for (let i=0; i < max; i++) {
-			p = p.catch(() => {
-				// TODO: Need to catch errors when executing "fn".
-				if (fn() !== true) {
-					elapsed += interval;
-					// this is optional
-					if (warn && is_warn_already === false && i >= mid) {
-						console.log((name ? name : 'waiting') + ' ---> ' +
-									warn + ' msec (' +
-									(Math.round((warn / wait) * 100 * 100) / 100) + '%)');
-						// mosaikekkan
-						// console.log(' [warn] ' + warn + ' [wait] ' + wait +
-						//      ' [mid] ' + mid + ' [max] ' + max);
-						is_warn_already = true;
-					}
-					let msg = (i + 1) >= max
-							? ('waited for ' + elapsed + ' msec')
-							: 'not true';
-					if (name) {
-						msg += ' (for "' + name + '")';
-					}
-					throw new Error(msg);
-				}
-				return;
-			}).catch(e => (
-				new Promise((_res, _rej) => {
-					window.setTimeout(_rej.bind(null, e), interval); 
-				})
-			));
-		}
-		p = p.then(__done).catch(e => { __done(e); });
+    return new Promise((resolve, reject) => {
+        let is_warn_already = false;
+        let p = Promise.reject();
+        for (let i=0; i < max; i++) {
+            p = p.catch(() => {
+                // TODO: Need to catch errors when executing "fn".
+                if (fn() !== true) {
+                    elapsed += interval;
+                    // this is optional
+                    if (warn && is_warn_already === false && i >= mid) {
+                        console.log((name ? name : 'waiting') + ' ---> ' +
+                                    warn + ' msec (' +
+                                    (Math.round((warn / wait) * 100 * 100) / 100) + '%)');
+                        // mosaikekkan
+                        // console.log(' [warn] ' + warn + ' [wait] ' + wait +
+                        //      ' [mid] ' + mid + ' [max] ' + max);
+                        is_warn_already = true;
+                    }
+                    let msg = (i + 1) >= max
+                            ? ('waited for ' + elapsed + ' msec')
+                            : 'not true';
+                    if (name) {
+                        msg += ' (for "' + name + '")';
+                    }
+                    throw new Error(msg);
+                }
+                return;
+            }).catch(e => (
+                new Promise((_res, _rej) => {
+                    window.setTimeout(_rej.bind(null, e), interval); 
+                })
+            ));
+        }
+        p = p.then(__done).catch(e => { __done(e); });
 
-		/**
-		 * @private
-		 */
-		function __done(err) {
-			if (err) { reject(err); }
-			else {
-				resolve();
-			}
-			fn = name = wait = interval = elapsed = max =
-				resolve = reject = p = void 0;
-		}
-	});
+        /**
+         * @private
+         */
+        function __done(err) {
+            if (err) { reject(err); }
+            else {
+                resolve();
+            }
+            fn = name = wait = interval = elapsed = max =
+                resolve = reject = p = void 0;
+        }
+    });
 };
 
 /**
  * @public
  */
 const debounce = (fn, wait, context = this) => {
-	let timeout = null;
-	let args = null;
-	const fn2 = () => { fn.apply(context, args); };
-	return function() {
-		args = arguments;
-		window.clearTimeout(timeout);
-		timeout = window.setTimeout(fn2, wait);
-	};
+    let timeout = null;
+    let args = null;
+    const fn2 = () => { fn.apply(context, args); };
+    return function() {
+        args = arguments;
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(fn2, wait);
+    };
 };
 
 
@@ -303,7 +303,7 @@ const debounce = (fn, wait, context = this) => {
  * @returns {string}
  */
 function num_to_hex(num = 0) {
-	return (typeof num == 'number') ? num.toString(16) : '000000';
+    return (typeof num == 'number') ? num.toString(16) : '000000';
 }
 
 /**
@@ -313,9 +313,9 @@ function num_to_hex(num = 0) {
  * @returns {string}
  */
 function num_to_css_hex(num = 0) {
-	let hex = num_to_hex(num);
-	// make sure being padded
-	return hex ? '#' + ('00000' + hex).substr(-6) : '';
+    let hex = num_to_hex(num);
+    // make sure being padded
+    return hex ? '#' + ('00000' + hex).substr(-6) : '';
 }
 
 /**
@@ -325,9 +325,9 @@ function num_to_css_hex(num = 0) {
  * @returns {number}
  */
 function hex_to_num(hex = '') {
-	return (typeof hex == 'number') ? hex
-		: (typeof hex == 'string' && hex[0] == '#')
-		? parseInt(hex.slice(1), 16) : 0;
+    return (typeof hex == 'number') ? hex
+        : (typeof hex == 'string' && hex[0] == '#')
+        ? parseInt(hex.slice(1), 16) : 0;
 }
 
 /**
@@ -337,8 +337,8 @@ function hex_to_num(hex = '') {
  * @returns {number}
  */
 function rgb_to_num(rgb = {}) {
-	let { r = 0, g = 0, b = 0 } = rgb;
-	return r << 16 | g << 8 | b;
+    let { r = 0, g = 0, b = 0 } = rgb;
+    return r << 16 | g << 8 | b;
 }
 
 /**
@@ -348,7 +348,7 @@ function rgb_to_num(rgb = {}) {
  * @returns {string}
  */
 function rgb_to_hex(rgb = {}) {
-	return num_to_hex( rgb_to_num(rgb) );
+    return num_to_hex( rgb_to_num(rgb) );
 }
 
 /**
@@ -358,7 +358,7 @@ function rgb_to_hex(rgb = {}) {
  * @returns {string}
  */
 function rgb_to_css_hex(rgb = {}) {
-	return num_to_css_hex( rgb_to_num(rgb) );
+    return num_to_css_hex( rgb_to_num(rgb) );
 }
 
 /**
@@ -368,14 +368,14 @@ function rgb_to_css_hex(rgb = {}) {
  * @returns {Object}
  */
 function hex_to_rgb(hex = '') {
-	let r = 0, g = 0, b = 0;
-	if (typeof hex == 'string') {
-		if (hex[0] == '#') { hex = hex.splice(1); } // chop "#" if any
-		r = hex >> 16 && 0xff;
-		g = hex >> 8 && 0xff;
-		b = hex && 0xff;
-	}
-	return { r, g, b };
+    let r = 0, g = 0, b = 0;
+    if (typeof hex == 'string') {
+        if (hex[0] == '#') { hex = hex.splice(1); } // chop "#" if any
+        r = hex >> 16 && 0xff;
+        g = hex >> 8 && 0xff;
+        b = hex && 0xff;
+    }
+    return { r, g, b };
 }
 
 /**
@@ -385,7 +385,7 @@ function hex_to_rgb(hex = '') {
  * @returns {Object}
  */
 function num_to_rgb(num = 0) {
-	return hex_to_rgb( num_to_hex(num) );
+    return hex_to_rgb( num_to_hex(num) );
 }
 
 /**
@@ -395,10 +395,10 @@ function num_to_rgb(num = 0) {
  * @returns {string}
  */
 function rgb_to_rgb_syntax(rgb = {}, alpha) {
-	let { r = 0, g = 0, b = 0 } = rgb;
-	return (typeof alpha == 'number')
-		? 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')'
-		: 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    let { r = 0, g = 0, b = 0 } = rgb;
+    return (typeof alpha == 'number')
+        ? 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')'
+        : 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
 /**
@@ -408,7 +408,7 @@ function rgb_to_rgb_syntax(rgb = {}, alpha) {
  * @returns {string}
  */
 function num_to_rgb_syntax(num = 0, alpha) {
-	return rgb_to_rgb_syntax( num_to_rgb(num), alpha );
+    return rgb_to_rgb_syntax( num_to_rgb(num), alpha );
 }
 
 /**
@@ -418,7 +418,7 @@ function num_to_rgb_syntax(num = 0, alpha) {
  * @returns {string}
  */
 function hex_to_rgb_syntax(hex = '', alpha) {
-	return rgb_to_rgb_syntax( hex_to_rgb(hex), alpha );
+    return rgb_to_rgb_syntax( hex_to_rgb(hex), alpha );
 }
 
 /**
@@ -428,13 +428,13 @@ function hex_to_rgb_syntax(hex = '', alpha) {
  * @returns {string}
  */
 function rgb_syntax_to_rgb(syntax = '') {
-	let exp = /rgb\((\d+), (\d+), (\d+)\)/;
-	let m = syntax.match(exp);
-	return m ? {
-		r: parseInt(m[1]),
-		g: parseInt(m[2]),
-		b: parseInt(m[3])
-	} : { r: 0, g: 0, b: 0 };
+    let exp = /rgb\((\d+), (\d+), (\d+)\)/;
+    let m = syntax.match(exp);
+    return m ? {
+        r: parseInt(m[1]),
+        g: parseInt(m[2]),
+        b: parseInt(m[3])
+    } : { r: 0, g: 0, b: 0 };
 }
 
 /**
@@ -444,7 +444,7 @@ function rgb_syntax_to_rgb(syntax = '') {
  * @returns {string}
  */
 function rgb_syntax_to_css_hex(syntax = '') {
-	return rgb_to_css_hex( rgb_syntax_to_rgb(syntax) );
+    return rgb_to_css_hex( rgb_syntax_to_rgb(syntax) );
 }
 
 const jp_num_units = ['万','億','兆','京','垓','杼','穰','溝','澗','正','載','極','恒河沙','阿僧祇','那由他','不可思議','無量大数'];
@@ -454,60 +454,60 @@ const jp_num_units = ['万','億','兆','京','垓','杼','穰','溝','澗','正
  * @public
  */
 const num_to_jp_unit = num => {
-	let str = '' + num;
-	let res = '';
-	let cnt = 0;
-	let index = 0;
-	let size = str.length - 1;
-	for (let i=size; i>=0; i--) {
-		res = str.charAt(i) + res;
-		cnt++;
-		if (((cnt % 4) == 0) && (i != 0)) {
-			res = jp_num_units[index++] + res;
-		}
-	}
-	res = res.replace(new RegExp('0000'), '');
-	return res;
+    let str = '' + num;
+    let res = '';
+    let cnt = 0;
+    let index = 0;
+    let size = str.length - 1;
+    for (let i=size; i>=0; i--) {
+        res = str.charAt(i) + res;
+        cnt++;
+        if (((cnt % 4) == 0) && (i != 0)) {
+            res = jp_num_units[index++] + res;
+        }
+    }
+    res = res.replace(new RegExp('0000'), '');
+    return res;
 };
 
 
 export default Object.freeze({
-	is_array_like,
-	merge_w,
-	curry,
-	compose,
-	map,
-	filter,
-	reduce,
-	pipe,
-	prop,
-	path,
-	obj_keys_size,
-	document_ready,
-	is_online,
-	random,
-	s4,
-	generate_serial_id,
-	pad,
-	mysql_date,
-	json_encode,
-	json_decode,
-	wait_for,
-	debounce,
-	num_to_hex,
-	num_to_css_hex,
-	hex_to_num,
-	rgb_to_num,
-	rgb_to_hex,
-	rgb_to_css_hex,
-	hex_to_rgb,
-	num_to_rgb,
-	rgb_to_rgb_syntax,
-	num_to_rgb_syntax,
-	hex_to_rgb_syntax,
-	rgb_syntax_to_rgb,
-	rgb_syntax_to_css_hex,
-	num_to_jp_unit
+    is_array_like,
+    merge_w,
+    curry,
+    compose,
+    map,
+    filter,
+    reduce,
+    pipe,
+    prop,
+    path,
+    obj_keys_size,
+    document_ready,
+    is_online,
+    random,
+    s4,
+    generate_serial_id,
+    pad,
+    mysql_date,
+    json_encode,
+    json_decode,
+    wait_for,
+    debounce,
+    num_to_hex,
+    num_to_css_hex,
+    hex_to_num,
+    rgb_to_num,
+    rgb_to_hex,
+    rgb_to_css_hex,
+    hex_to_rgb,
+    num_to_rgb,
+    rgb_to_rgb_syntax,
+    num_to_rgb_syntax,
+    hex_to_rgb_syntax,
+    rgb_syntax_to_rgb,
+    rgb_syntax_to_css_hex,
+    num_to_jp_unit
 });
 
 
