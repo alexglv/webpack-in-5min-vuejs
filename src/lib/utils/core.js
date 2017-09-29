@@ -1,5 +1,32 @@
 /**
- * lib/utils/core.js
+ * Standard tools that are regularly in use.
+ *
+ * LICENSES:
+ *
+ * For "sortBy" and "path" bellow, "Ramda" is licensed under MIT:
+ * --------------------------------------------------------------------------
+ * The MIT License (MIT)
+ * 
+ * Copyright (c) 2013-2016 Scott Sauyet and Michael Hurley
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * --------------------------------------------------------------------------
  */
 import merge from 'lodash.merge';
 import mergewith from 'lodash.mergewith';
@@ -8,9 +35,17 @@ import seedrandom from 'seedrandom';
 const srand = seedrandom();
 const slice = Array.prototype.slice;
 
+const concat = list => Array.prototype.concat.bind(list);
+
 /**
- * From Eric Elliott's examples.
- * @protected
+ * From Eric Elliott's blog post.
+ * https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30
+ * -------------------------------------------------------------------
+ * Alternatively, from his Gist:
+ * https://gist.github.com/ericelliott/00d32233e855ef1903ba6a50b7d191d5
+ * const curry = fn => (...args) => fn.bind(null, ...args);
+ * -------------------------------------------------------------------
+ * @public
  */
 const curry = (fn, arr = []) => (
     (...args) => (
@@ -21,45 +56,114 @@ const curry = (fn, arr = []) => (
 );
 
 /**
- * From Eric Elliott's examples.
- * @protected
+ * From Eric Elliott's blog post.
+ * https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d
+ * @public
  */
 const compose = (...fns) => o => fns.reduceRight((v, f) => f(v), o);
 
 /**
- * @protected
+ * From Eric Elliott's Gist:
+ * https://gist.github.com/ericelliott/00d32233e855ef1903ba6a50b7d191d5
+ * or the same code found in his blog article:
+ * https://medium.com/javascript-scene/functors-categories-61e031bac53f
+ * -------------------------------------------------------------------
+ * Alternatively, from his blog post:
+ * https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d
+ * const map = (fn, arr) => arr.reduce((acc, item, index, arr) => {
+ *     return acc.concat(fn(item, index, arr));
+ * }, []);
+ * -------------------------------------------------------------------
+ * @public
  */
 const map = curry((fn, arr) => arr.map(fn));
 
 /**
- * @protected
+ * From Eric Elliott's Gist:
+ * https://gist.github.com/ericelliott/00d32233e855ef1903ba6a50b7d191d5
+ * -------------------------------------------------------------------
+ * Alternatively, from his blog post:
+ * https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99
+ * const filter = (
+ *     fn, arr
+ * ) => reduce((acc, curr) => fn(curr) ?
+ *     acc.concat([curr]) :
+ *     acc, [], arr
+ * );
+ * Or, from his another post:
+ * https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d
+ * const filter = (fn, arr) => arr.reduce((newArr, item) => {
+ *   return fn(item) ? newArr.concat([item]) : newArr;
+ * }, []);
+ * -------------------------------------------------------------------
+ * @public
  */
 const filter = curry((fn, arr) => arr.filter(fn));
 
 /**
- * @protected
+ * Common way to implement "reduce".
+ * -------------------------------------------------------------------
+ * Alternatively, from Eric Elliott's blog post:
+ * https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99  
+ * const reduce = (reducer, initial, arr) => {
+ *     let acc = initial;
+ *     for (let i = 0, length = arr.length; i < length; i++) {
+ *         acc = reducer(acc, arr[i]);
+ *     }
+ *     return acc;
+ * };
+ * -------------------------------------------------------------------
+ * @public
  */
 const reduce = curry((fn, def, arr) => arr.reduce(fn, def));
 
 /**
- * From Eric Elliott's examples.
- * @protected
+ * From "ramda" implementation.
+ * https://github.com/ramda/ramda/blob/master/src/sortBy.js
+ * (see the license information at the top of the file)
+ * @public
+ */
+const sortBy = curry((fn, list) => {
+    return Array.prototype.slice.call(list, 0).sort((a, b) => {
+        const aa = fn(a);
+        const bb = fn(b);
+        return aa < bb ? -1 : aa > bb ? 1 : 0;
+    });
+});
+
+/**
+ * From Eric Elliott's Gist:
+ * https://gist.github.com/ericelliott/00d32233e855ef1903ba6a50b7d191d5
+ * @public
+ */
+const split = curry((splitOn, str) => str.split(splitOn));
+
+/**
+ * From Eric Elliott's Gist:
+ * https://gist.github.com/ericelliott/00d32233e855ef1903ba6a50b7d191d5
+ * @public
+ */
+const join = curry((str, arr) => arr.join(str));
+
+/**
+ * From Eric Elliott's example.
+ * @public
  */
 const pipe = fns => data => fns.reduce((prev, fn) => fn(prev), data);
 
 /**
- * @protected
+ * @public
  */
 const prop = key => {
-    if (typeof key != 'string') throw new Error('Not an string');
-    return (o = {}) => (
-        (typeof o == 'object' && (key in o)) ? o[key] : null
-    );
+    if (typeof key != 'string') { throw new Error('Not a string'); }
+    return o => (typeof o == 'object' && (key in o)) ? o[key] : null;
 };
 
 /**
  * From "ramda" implementation.
- * @protected
+ * https://github.com/ramda/ramda/blob/master/src/path.js
+ * (see the license information at the top of the file)
+ * @public
  */
 const path = curry((paths, o) => {
     let tmp = o;
@@ -75,69 +179,128 @@ const path = curry((paths, o) => {
 });
 
 /**
- * @protected
+ * @public
  */
-const obj_keys_size = o => (typeof o == 'object' && Object.keys(o).length);
+const obj_keys_size = o => (typeof o == 'object' && o != null && Object.keys(o).length) || 0;
 
 /**
  * http://stackoverflow.com/questions/24048547/checking-if-an-object-is-array-like#24048615
  * @public
  */
-const is_array_like = item => (
-    Array.isArray(item) || (
-        !!item &&
-            typeof item == 'object' &&
-            item.hasOwnProperty('length') &&
-            typeof item.length == 'number' && (
-                item.length == 0 || (
-                    item.length > 0 && (item.length - 1) in item
-                )
-            )
-    )
-);
+const is_array_like = item => {
+    return Array.isArray(item) || (
+        !!item
+            && (typeof item == 'object')
+            && item.hasOwnProperty('length')
+            && (typeof item.length == 'number')
+            && ((item.length == 0) || (
+                (item.length > 0) && ((item.length - 1) in item)
+            ))
+    );
+};
 
 /**
  * https://davidwalsh.name/combining-js-arrays
  */
 const merge_w = (obj, obj2) => (
-    mergewith(obj, obj2, (o, o2) => {
-        if (is_array_like(o)) {
-            return o2.reduce((acc, item) => {
-                acc.push(item);
-                return acc;
-            }, o.slice(0));
+    mergewith(obj, obj2, (o, o2) => (
+        is_array_like(o)
+            ? o2.reduce((acc, item) => acc.concat([item]), o.slice(0))
+            : (typeof o == 'object')
+            ? Object.assign(o, o2)
+            : o
+    ))
+);
+
+const promise_concat = f => x => f().then(concat(x));
+const promise_reduce = (acc, x) => acc.then(promise_concat(x));
+/*
+ * Executes Promises sequentially.
+ * https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence#41115086
+ */
+const promise_serial = funcs => funcs.reduce(promise_reduce, Promise.resolve([]));
+
+/**
+ * http://stackoverflow.com/questions/38213668/promise-retry-design-patterns#38225011
+ * @public
+ */
+const wait_for = (f, options = {}) => {
+    return new Promise((resolve, reject) => {
+        let {
+            name = '', wait = 5000, interval = 100,
+            wait_time_max = (1.5 * 60 * 1000),
+            warn = false
+        } = options;
+        if (wait > wait_time_max) {
+            wait = wait_time_max;
         }
-    })
-);
-
-/**
- * @public
- */
-const document_ready = () => (
-    new Promise((resolve, reject) => {
-        let state = document.readyState;
-        if (state == 'interactive' || state == 'complete') {
-            resolve();
-        } else {
-            window.addEventListener('DOMContentLoaded', resolve);
+        const max = Math.trunc(wait / interval);
+        let elapsed = 0;
+        const delay = () => new Promise((resolve, reject) => {
+            if (warn && !(elapsed % 1000)) {
+                const percent = Math.trunc((elapsed / wait) * 1000) / 10;
+                console.log('[util]   '
+                            + (name ? '(' + name + ')' : 'waiting')
+                            + ' ' + elapsed + ' ms'
+                            + ' (' + percent + '%)');
+            }
+            // (3) "2nd catch" run "setTimeout" to delay the "resolve".
+            window.setTimeout(reject, interval);
+        });
+        const attempt = () => {
+            if (f() !== true) {
+                elapsed += interval;
+                // (2) When "attempt" fails, throw an error
+                //   to let it fall into the "2nd catch".
+                throw new Error();
+            }
+            // (4) In case the "attempt" succeeds,
+            //   then we should no longer return "reject".
+            //   Since "p" does not have rejection,
+            //   no matter how many times
+            //   the "for" loop runs, it will not
+            //   go to "1st catch" nor "2nd catch".
+            //   When the loop ends, it goes to "then".
+            //   Otherwise, it goes to the "3rd catch".
+            return elapsed;
+        };
+        // (1) In order to run the initial "attempt",
+        //   we must intentionally let it
+        //   fall into the "1st catch".
+        let p = Promise.reject();
+        for (let i=0; i<max; i++) {
+            p = p.catch(attempt).catch(delay);
         }
-    })
-);
+        p = p.then(resolve).catch(() => {
+            reject(new Error(
+                'Gave up waiting'
+                    + (name ? ' for "' + name + '"' : '')
+            ));
+        });
+    });
+};
 
 /**
  * @public
  */
-const is_online = () => (
-    (typeof window.navigator != 'undefined' && window.navigator.onLine)
-        ? true : false
-);
+const debounce = (fn, wait, context = this) => {
+    let timeout = null;
+    let args = null;
+    const fn2 = () => { fn.apply(context, args); };
+    return function() {
+        args = arguments;
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(fn2, wait);
+    };
+};
+
 
 /**
  * @public
  */
-const random = (min = 0, max = 1) => (
-    Math.floor(srand() * (max - min + 1)) + min
-);
+const random = (min = 0, max = 1) => {
+    return Math.floor(srand() * (max - min + 1)) + min;
+};
 
 /**
  * Randomly generate strings of 4.
@@ -175,7 +338,20 @@ const pad = (num = 0, size = 2) => {
 /**
  * @public
  */
-const mysql_date = (d = null) => (
+const mysql_date = (d = null) => {
+    return (d && d.getFullYear()
+     + '-' + pad(d.getMonth() + 1)
+     + '-' + pad(d.getDate())
+     + ' ' + pad(d.getHours())
+     + ':' + pad(d.getMinutes())
+     + ':' + pad(d.getSeconds())
+           ) || null;
+};
+
+/**
+ * @public
+ */
+const mysql_datetime = (d = new Date) => (
     (d && d.getFullYear()
      + '-' + pad(d.getMonth() + 1)
      + '-' + pad(d.getDate())
@@ -188,95 +364,13 @@ const mysql_date = (d = null) => (
 /**
  * @public
  */
-const json_encode = data => (
-    new Promise((resolve, reject) => {
-        if (!data) {
-            reject(new Error('No data is given.'));
-            return;
-        }
-        try {
-            resolve( JSON.stringify(data) );
-        }
-        catch(e) {
-            reject(e);
-        }
-    })
-);
-
-/**
- * @public
- */
-const json_decode = data => (
-    new Promise((resolve, reject) => {
-        if (!data) {
-            reject(new Error('No data is given.'));
-            return;
-        }
-        try {
-            resolve( JSON.parse(data) );
-        }
-        catch(e) {
-            reject(e);
-        }
-    })
-);
-
-/**
- * http://stackoverflow.com/questions/38213668/promise-retry-design-patterns#38225011
- * @public
- */
-const wait_for = (fn = null, {name = '', wait = 4000, warn = 0, interval = 100}) => {
-    if (typeof fn != 'function') { throw new Error('no_function_given'); }
-    let elapsed = 0;
-    let max = parseInt(wait / interval);
-    if (max > 900) { max = 900; } // No more than 1.5 min.
-    let mid = warn ? parseInt(warn / interval) : 0; // this is optional
-
+const document_ready = () => {
     return new Promise((resolve, reject) => {
-        let is_warn_already = false;
-        let p = Promise.reject();
-        for (let i=0; i < max; i++) {
-            p = p.catch(() => {
-                // TODO: Need to catch errors when executing "fn".
-                if (fn() !== true) {
-                    elapsed += interval;
-                    // this is optional
-                    if (warn && is_warn_already === false && i >= mid) {
-                        console.log((name ? name : 'waiting') + ' ---> ' +
-                                    warn + ' msec (' +
-                                    (Math.round((warn / wait) * 100 * 100) / 100) + '%)');
-                        // mosaikekkan
-                        // console.log(' [warn] ' + warn + ' [wait] ' + wait +
-                        //      ' [mid] ' + mid + ' [max] ' + max);
-                        is_warn_already = true;
-                    }
-                    let msg = (i + 1) >= max
-                            ? ('waited for ' + elapsed + ' msec')
-                            : 'not true';
-                    if (name) {
-                        msg += ' (for "' + name + '")';
-                    }
-                    throw new Error(msg);
-                }
-                return;
-            }).catch(e => (
-                new Promise((_res, _rej) => {
-                    window.setTimeout(_rej.bind(null, e), interval); 
-                })
-            ));
-        }
-        p = p.then(__done).catch(e => { __done(e); });
-
-        /**
-         * @private
-         */
-        function __done(err) {
-            if (err) { reject(err); }
-            else {
-                resolve();
-            }
-            fn = name = wait = interval = elapsed = max =
-                resolve = reject = p = void 0;
+        let state = document.readyState;
+        if (state == 'interactive' || state == 'complete') {
+            resolve();
+        } else {
+            window.addEventListener('DOMContentLoaded', resolve);
         }
     });
 };
@@ -284,17 +378,10 @@ const wait_for = (fn = null, {name = '', wait = 4000, warn = 0, interval = 100})
 /**
  * @public
  */
-const debounce = (fn, wait, context = this) => {
-    let timeout = null;
-    let args = null;
-    const fn2 = () => { fn.apply(context, args); };
-    return function() {
-        args = arguments;
-        window.clearTimeout(timeout);
-        timeout = window.setTimeout(fn2, wait);
-    };
+const is_online = () => {
+    return (typeof window.navigator != 'undefined' && window.navigator.onLine)
+        ? true : false;
 };
-
 
 /**
  * Ex. 16733683 ---> ff55f3
@@ -472,28 +559,33 @@ const num_to_jp_unit = num => {
 
 
 export default Object.freeze({
-    is_array_like,
-    merge_w,
+    slice,
+    concat,
     curry,
     compose,
     map,
     filter,
     reduce,
+    sortBy,
+    split,
+    join,
     pipe,
     prop,
     path,
     obj_keys_size,
-    document_ready,
-    is_online,
+    is_array_like,
+    merge_w,
+    promise_serial,
+    wait_for,
+    debounce,
     random,
     s4,
     generate_serial_id,
     pad,
     mysql_date,
-    json_encode,
-    json_decode,
-    wait_for,
-    debounce,
+    mysql_datetime,
+    document_ready,
+    is_online,
     num_to_hex,
     num_to_css_hex,
     hex_to_num,

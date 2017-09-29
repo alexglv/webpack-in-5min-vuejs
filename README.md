@@ -99,6 +99,11 @@ npm install
 
 ## 4. <a name="updates"></a>Updates
 
+**Ver. 1.2.5 --> 1.2.8**
+
+- Refactoring on utility tools.
+- Some other minor modifications.
+
 **Ver. 1.2.4 --> 1.2.5**
 
 - Added an example using *"RxJS"*.
